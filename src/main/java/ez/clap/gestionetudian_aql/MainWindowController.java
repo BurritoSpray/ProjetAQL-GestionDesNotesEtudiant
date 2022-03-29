@@ -8,7 +8,9 @@ import javafx.scene.control.ListView;
 public class MainWindowController {
     @FXML
     private Label welcomeText;
-    public Button myButton;
+    @FXML
+    private Button myButton;
+    @FXML
     private ListView<String> listView;
 
     @FXML
