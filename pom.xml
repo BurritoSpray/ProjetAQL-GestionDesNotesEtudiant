@@ -107,7 +107,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>ez.clap.gestionetudian_aql/ez.clap.gestionetudian_aql.HelloApplication
+                            <mainClass>ez.clap.gestionetudian_aql/ez.clap.gestionetudian_aql.MainWindow
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
