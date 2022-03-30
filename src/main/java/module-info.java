@@ -11,4 +11,6 @@ module ez.clap.gestionetudian_aql {
 
     opens ez.clap.gestionetudian_aql to javafx.fxml;
     exports ez.clap.gestionetudian_aql;
+    exports ez.clap.gestionetudian_aql.controllers;
+    opens ez.clap.gestionetudian_aql.controllers to javafx.fxml;
 }
