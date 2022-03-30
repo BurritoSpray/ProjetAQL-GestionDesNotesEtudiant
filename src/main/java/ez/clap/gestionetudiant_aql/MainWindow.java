@@ -1,4 +1,4 @@
-package ez.clap.gestionetudian_aql;
+package ez.clap.gestionetudiant_aql;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
