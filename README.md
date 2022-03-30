@@ -1,2 +1,2 @@
 # ProjetAQL-GestionDesNotesEtudiant
-Projet pour le cours AQL
+Projet pour le cours AQL.
