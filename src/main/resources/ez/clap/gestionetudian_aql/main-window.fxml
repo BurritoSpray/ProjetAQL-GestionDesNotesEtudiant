@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="288.0" prefWidth="602.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudian_aql.controllers.MainWindowController">
+<VBox alignment="CENTER" prefHeight="288.0" prefWidth="602.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudian_aql.controllers.MainWindowController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -26,6 +26,7 @@
          <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
                <Button fx:id="myButton" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#onMyFuncClick" text="MyFunc" />
+               <Button layoutX="134.0" layoutY="20.0" mnemonicParsing="false" text="test" />
             </children>
          </AnchorPane>
       </children>
