@@ -1,4 +1,4 @@
-package ez.clap.gestionetudian_aql;
+package ez.clap.gestionetudian_aql.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
