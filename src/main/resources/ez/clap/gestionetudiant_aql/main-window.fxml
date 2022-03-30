@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="474.0" prefWidth="745.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <AnchorPane prefHeight="455.0" prefWidth="726.0">
+         <children>
+            <Button fx:id="buttonAddStudent" layoutX="304.0" layoutY="205.0" mnemonicParsing="false" onAction="#onButtonAddStudentClick" text="add student" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
