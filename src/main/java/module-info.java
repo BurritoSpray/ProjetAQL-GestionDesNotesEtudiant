@@ -1,4 +1,4 @@
-module ez.clap.gestionetudian_aql {
+module ez.clap.gestionetudiant_aql {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -9,8 +9,8 @@ module ez.clap.gestionetudian_aql {
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
 
-    opens ez.clap.gestionetudian_aql to javafx.fxml;
-    exports ez.clap.gestionetudian_aql;
-    exports ez.clap.gestionetudian_aql.controllers;
-    opens ez.clap.gestionetudian_aql.controllers to javafx.fxml;
+    opens ez.clap.gestionetudiant_aql to javafx.fxml;
+    exports ez.clap.gestionetudiant_aql;
+    exports ez.clap.gestionetudiant_aql.controllers;
+    opens ez.clap.gestionetudiant_aql.controllers to javafx.fxml;
 }
