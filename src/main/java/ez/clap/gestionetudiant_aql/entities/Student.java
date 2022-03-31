@@ -1,6 +1,5 @@
 package ez.clap.gestionetudiant_aql.entities;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ public class Student {
         this.studentID = studentID;
         this.firstName = firstName;
         this.secondName = secondName;
+        this.courseList = new ArrayList<>();
     }
 
     public Student(String firstName, String secondName, String studentID, ArrayList<Course> courseList){
@@ -37,6 +37,15 @@ public class Student {
     }
 
     public ArrayList<Course> getCourseList(){return this.courseList;}
+
+    public ComboBox<String> getCourseListAsComboBox(){
+        ComboBox<String> combobox = new ComboBox<>();
+        for(Course course : courseList){
+            combobox.getItems().add(course.getTitle());
+        }
+        combobox.getSelectionModel().selectFirst();
+        return combobox;
+    }
 
 //    // TODO: Verifier la fonction
 //    public ArrayList<ComboBox<Course>> getCourseListAsComboBox(){
