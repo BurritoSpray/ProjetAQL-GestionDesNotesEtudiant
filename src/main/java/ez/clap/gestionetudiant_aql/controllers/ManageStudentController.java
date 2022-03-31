@@ -1,5 +1,7 @@
 package ez.clap.gestionetudiant_aql.controllers;
 
+import ez.clap.gestionetudiant_aql.entities.Course;
+import ez.clap.gestionetudiant_aql.entities.Student;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -7,7 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ManageStudentWindow {
+public class ManageStudentController {
     @FXML
     public Button buttonCancel;
     @FXML
@@ -15,7 +17,7 @@ public class ManageStudentWindow {
     @FXML
     public TextField textFieldNumber, textFieldFirstName, textFieldSecondName;
     @FXML
-    public static ListView<CheckBox> listViewCourse;
+    public ListView<CheckBox> listViewCourse;
 
     @FXML
     private void onButtonConfirmClick(){
@@ -28,8 +30,15 @@ public class ManageStudentWindow {
         stage.close();
     }
 
-    public void loadUser(String user){
-        textFieldFirstName.setText(user);
+    public void loadStudent(Student student){
+        textFieldFirstName.setText(student.getFirstName());
+        textFieldSecondName.setText(student.getSecondName());
+        textFieldNumber.setText(student.getStudentID());
+        if(!student.getCourseList().isEmpty()){
+            for(Course course : student.getCourseList()){
+                listViewCourse.getItems().add(new CheckBox(course.getTitle()));
+            }
+        }
     }
 
 
