@@ -62,20 +62,42 @@ public class MainWindowController {
         switch(action){
             // switch pour setup la fenetre
             case Edit:{
+                root = loader.load();
                 stage.setTitle("Modifier l'étudiant");
-                ManageStudentWindow manageStudentWindow = loader.getController();
-                manageStudentWindow.loadUser("Test");
-                manageStudentWindow.buttonConfirm.setText("Modifier");
+                ManageStudentController manageStudentController = loader.getController();
+                manageStudentController.loadStudent(tableViewStudent.getSelectionModel().getSelectedItem());
+                manageStudentController.buttonConfirm.setText("Modifier");
                 break;
             }
             case Create:{
                 stage.setTitle("Creer un étudiant");
+                root = loader.load();
+                ManageStudentController manageStudentController = loader.getController();
+
+                manageStudentController.buttonConfirm.setOnAction(event -> {
+                    if(isStudentFieldsValid(manageStudentController)){
+                        addStudent(new Student(manageStudentController.textFieldFirstName.getText(),
+                                manageStudentController.textFieldSecondName.getText(),
+                                manageStudentController.textFieldNumber.getText()));
+
+                        ((Stage)manageStudentController.buttonConfirm.getScene().getWindow()).close();
+                    }else {
+                        showWarningPopup("Erreur", "Information manquante!", "OK");
+                    }
+                });
                 break;
             }
             case Delete:{
-                stage.setTitle("Attention!");
                 loader = new FXMLLoader(MainWindow.class.getResource("delete-student-window.fxml"));
                 root = loader.load();
+                stage.setTitle("Attention!");
+                DeleteStudentController deleteStudentController = loader.getController();
+                deleteStudentController.buttonConfirm.setOnAction(event->{
+                    Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+                    Data.getStudentList().remove(selectedStudent);
+                    tableViewStudent.getItems().remove(selectedStudent);
+                    ((Stage)deleteStudentController.buttonConfirm.getScene().getWindow()).close();
+                });
                 break;
             }
             default:{
@@ -86,6 +108,27 @@ public class MainWindowController {
 
         stage.setScene(new Scene(root));
         return stage;
+    }
+
+    private boolean isStudentFieldsValid(ManageStudentController manageStudentController){
+        return !manageStudentController.textFieldFirstName.getText().isEmpty() &&
+                !manageStudentController.textFieldSecondName.getText().isEmpty() &&
+                !manageStudentController.textFieldNumber.getText().isEmpty();
+    }
+
+    private void showWarningPopup(String title, String warningMessage, String buttonText){
+        Dialog dialog = new Dialog();
+        dialog.setTitle(title);
+        dialog.setContentText(warningMessage);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        ButtonType closeButton = new ButtonType(buttonText, ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().add(closeButton);
+        dialog.show();
+    }
+
+    private void addStudent(Student student){
+        Data.getStudentList().add(student);
+        tableViewStudent.getItems().setAll(Data.getStudentList());
     }
 
 
