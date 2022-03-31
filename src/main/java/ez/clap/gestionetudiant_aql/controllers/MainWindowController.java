@@ -1,15 +1,18 @@
 package ez.clap.gestionetudiant_aql.controllers;
 
 import ez.clap.gestionetudiant_aql.MainWindow;
+import ez.clap.gestionetudiant_aql.entities.Student;
+import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainWindowController {
 
@@ -19,11 +22,14 @@ public class MainWindowController {
         Delete
     }
 
-
-
     @FXML
     public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent;
-
+    @FXML
+    public TableView<Student> tableViewStudent;
+    @FXML
+    public TableColumn<Student,String> tableColumnFirstName, tableColumnSecondName, tableColumnNumber;
+    @FXML
+    public TableColumn<Student, ArrayList<String>> tableColumnCourse;
 
 
     @FXML
@@ -49,7 +55,7 @@ public class MainWindowController {
     private Stage setupStudentStage(Action action) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("manage-student-window.fxml"));
-        Parent root = loader.load();
+        Parent root; //= loader.load();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
