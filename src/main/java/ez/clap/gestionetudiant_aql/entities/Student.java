@@ -44,7 +44,7 @@ public class Student {
             combobox.getItems().add(course.getTitle());
         }
         combobox.getSelectionModel().selectFirst();
-        combobox.prefWidth(140);
+        combobox.setPrefWidth(140);
         return combobox;
     }
 
