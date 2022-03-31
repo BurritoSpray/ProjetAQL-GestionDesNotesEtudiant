@@ -91,13 +91,16 @@ public class MainWindowController {
             case Delete:{
                 loader = new FXMLLoader(MainWindow.class.getResource("delete-student-window.fxml"));
                 root = loader.load();
+
                 stage.setTitle("Attention!");
                 DeleteStudentController deleteStudentController = loader.getController();
+                Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+                deleteStudentController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
+
                 deleteStudentController.buttonConfirm.setOnAction(event->{
-                    Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
                     Data.getStudentList().remove(selectedStudent);
                     tableViewStudent.getItems().remove(selectedStudent);
-                    ((Stage)deleteStudentController.buttonConfirm.getScene().getWindow()).close();
+                    closeWindow(deleteStudentController.buttonConfirm);
                 });
                 break;
             }
@@ -127,9 +130,22 @@ public class MainWindowController {
         dialog.show();
     }
 
-    private void addStudent(Student student){
+    private void addStudentFromManageStudentController(ManageStudentController manageStudentController){
+        Student student = new Student(manageStudentController.textFieldFirstName.getText(),
+                manageStudentController.textFieldSecondName.getText(),
+                manageStudentController.textFieldNumber.getText());
         Data.getStudentList().add(student);
         tableViewStudent.getItems().setAll(Data.getStudentList());
+    }
+
+    private void removeSelectedStudent(ManageStudentController manageStudentController){
+        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+        Data.getStudentList().remove(selectedStudent);
+        tableViewStudent.getItems().remove(selectedStudent);
+    }
+
+    private void closeWindow(Control control){
+        ((Stage)control.getScene().getWindow()).close();
     }
 
 
