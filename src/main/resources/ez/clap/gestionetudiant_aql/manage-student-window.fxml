@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageStudentWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageStudentController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Numéro" />
       <TextField fx:id="textFieldNumber" layoutX="14.0" layoutY="30.0" />
@@ -10,9 +10,9 @@
       <TextField fx:id="textFieldFirstName" layoutX="14.0" layoutY="83.0" />
       <Label layoutX="14.0" layoutY="122.0" text="Nom" />
       <TextField fx:id="textFieldSecondName" layoutX="14.0" layoutY="138.0" />
-      <ListView fx:id="listViewCourse" layoutX="12.0" layoutY="187.0" prefHeight="200.0" prefWidth="240.0"/>
+      <ListView fx:id="listViewCourse" layoutX="12.0" layoutY="187.0" prefHeight="200.0" prefWidth="170.0" />
       <Label layoutX="12.0" layoutY="171.0" text="Cours" />
-      <Button fx:id="buttonConfirm" defaultButton="true" layoutX="152.0" layoutY="402.0" mnemonicParsing="false" onAction="#onButtonConfirmClick" text="Ajouter" />
-      <Button fx:id="buttonCancel" cancelButton="true" layoutX="34.0" layoutY="402.0" mnemonicParsing="false" onAction="#onButtonCancelClick" text="Annuler" />
+      <Button fx:id="buttonConfirm" defaultButton="true" layoutX="117.0" layoutY="402.0" mnemonicParsing="false" onAction="#onButtonConfirmClick" text="Ajouter" />
+      <Button fx:id="buttonCancel" cancelButton="true" layoutX="15.0" layoutY="402.0" mnemonicParsing="false" onAction="#onButtonCancelClick" text="Annuler" />
    </children>
 </AnchorPane>
