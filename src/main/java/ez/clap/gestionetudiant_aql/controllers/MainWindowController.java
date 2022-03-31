@@ -12,7 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MainWindowController {
 
@@ -29,7 +28,7 @@ public class MainWindowController {
     @FXML
     public TableColumn<Student,String> tableColumnFirstName, tableColumnSecondName, tableColumnNumber;
     @FXML
-    public TableColumn<Student, ArrayList<String>> tableColumnCourse;
+    public TableColumn<Student, ComboBox<String>> tableColumnCourse;
 
 
     @FXML
@@ -58,6 +57,8 @@ public class MainWindowController {
         Parent root; //= loader.load();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
+
+        // TODO: Ajouter dans le CourseListView la liste de tous les cours disponible et implementer dans l'objet etudiant seulement eu qui son cocher
 
         switch(action){
             // switch pour setup la fenetre
