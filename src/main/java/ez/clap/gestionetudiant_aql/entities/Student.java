@@ -1,16 +1,26 @@
 package ez.clap.gestionetudiant_aql.entities;
 
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Student {
     private String studentID;
     private String firstName;
     private String secondName;
+    private ArrayList<Course> courseList;
 
     public Student(String firstName, String secondName, String studentID){
         this.studentID = studentID;
         this.firstName = firstName;
         this.secondName = secondName;
+    }
+
+    public Student(String firstName, String secondName, String studentID, ArrayList<Course> courseList){
+        this(firstName, secondName, studentID);
+        this.courseList = courseList;
     }
 
     // Getters
@@ -19,12 +29,21 @@ public class Student {
     }
 
     public String getFirstName(){
-        return this.studentID;
+        return this.firstName;
     }
 
     public String getSecondName(){
         return this.secondName;
     }
+
+//    public ArrayList<Course> getCourseList(){return this.courseList;}
+//
+//    // TODO: Verifier la fonction
+//    public ArrayList<ComboBox<Course>> getCourseListAsComboBox(){
+//        ArrayList<ComboBox<Course>> comboBoxArrayList = new ArrayList<>();
+//        comboBoxArrayList.add(new ComboBox<>((ObservableList<Course>) courseList));
+//        return comboBoxArrayList;
+//    }
 
 
     // Setters
