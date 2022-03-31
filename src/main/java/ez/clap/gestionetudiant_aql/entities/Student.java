@@ -36,8 +36,8 @@ public class Student {
         return this.secondName;
     }
 
-//    public ArrayList<Course> getCourseList(){return this.courseList;}
-//
+    public ArrayList<Course> getCourseList(){return this.courseList;}
+
 //    // TODO: Verifier la fonction
 //    public ArrayList<ComboBox<Course>> getCourseListAsComboBox(){
 //        ArrayList<ComboBox<Course>> comboBoxArrayList = new ArrayList<>();
