@@ -8,6 +8,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -52,10 +54,16 @@ public class MainWindow extends Application {
             int idx = tableView.getSelectionModel().getFocusedIndex();
             System.out.println("Idx = " + idx + "\n" +
                     tableView.getItems().get(idx));
-            System.out.println(event.getTarget());
-            mainWindowController.buttonDeleteStudent.disableProperty().set(false);
-            mainWindowController.buttonEditStudent.disableProperty().set(false);
+            System.out.println(event.getTarget().getClass());
+            if(!tableView.selectionModelProperty().get().isEmpty()) {
+                mainWindowController.buttonDeleteStudent.disableProperty().set(false);
+                mainWindowController.buttonEditStudent.disableProperty().set(false);
+            }else{
+                mainWindowController.buttonDeleteStudent.disableProperty().set(true);
+                mainWindowController.buttonEditStudent.disableProperty().set(true);
+            }
         });
+
 
     }
 
