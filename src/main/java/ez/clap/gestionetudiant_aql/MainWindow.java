@@ -24,7 +24,7 @@ public class MainWindow extends Application {
     public void start(Stage stage) throws IOException {
         loadTestData();
         fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
         setupMainWindow();
         stage.setTitle("Gestionnaire d'étudiants");
         stage.setScene(scene);
