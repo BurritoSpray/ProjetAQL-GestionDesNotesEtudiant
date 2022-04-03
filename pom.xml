@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ez.clap</groupId>
-    <artifactId>GestionEtudian_AQL</artifactId>
+    <artifactId>GestionEtudiant_AQL</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>GestionEtudian_AQL</name>
+    <name>GestionEtudiant_AQL</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -107,7 +107,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>ez.clap.gestionetudian_aql/ez.clap.gestionetudian_aql.MainWindow
+                            <mainClass>ez.clap.gestionetudiant_aql/ez.clap.gestionetudiant_aql.MainWindow
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
