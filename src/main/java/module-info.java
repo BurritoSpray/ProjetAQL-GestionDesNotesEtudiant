@@ -10,7 +10,10 @@ module ez.clap.gestionetudiant_aql {
     requires eu.hansolo.tilesfx;
 
     opens ez.clap.gestionetudiant_aql to javafx.fxml;
+    opens ez.clap.gestionetudiant_aql.controllers to javafx.fxml;
+    opens ez.clap.gestionetudiant_aql.entities to javafx.base;
+
     exports ez.clap.gestionetudiant_aql;
     exports ez.clap.gestionetudiant_aql.controllers;
-    opens ez.clap.gestionetudiant_aql.controllers to javafx.fxml;
+    exports ez.clap.gestionetudiant_aql.entities;
 }
