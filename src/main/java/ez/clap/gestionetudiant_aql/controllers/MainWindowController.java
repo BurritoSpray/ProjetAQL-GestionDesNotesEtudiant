@@ -54,7 +54,7 @@ public class MainWindowController {
     private Stage setupStudentStage(Action action) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("manage-student-window.fxml"));
-        Parent root; //= loader.load();
+        Parent root;
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
