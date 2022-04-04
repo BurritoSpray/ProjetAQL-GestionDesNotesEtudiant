@@ -29,6 +29,10 @@ public class MainWindowController {
     public TableColumn<Student,String> tableColumnFirstName, tableColumnSecondName, tableColumnNumber;
     @FXML
     public TableColumn<Student, ComboBox<String>> tableColumnCourse;
+    @FXML
+    public TextField textFieldSearch;
+    @FXML
+    public ComboBox comboBoxSearchOption;
 
 
     @FXML
