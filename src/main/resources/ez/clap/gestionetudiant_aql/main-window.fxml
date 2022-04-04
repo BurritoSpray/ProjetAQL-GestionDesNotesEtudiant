@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
+<TabPane maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
   <tabs>
     <Tab text="Étudiant">
       <content>
@@ -26,25 +21,33 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <VBox layoutX="6.0" layoutY="7.0" prefHeight="200.0" prefWidth="165.0">
-                     <children>
-                        <Button fx:id="buttonAddStudent" mnemonicParsing="false" onAction="#onButtonAddStudentClick" prefHeight="24.0" prefWidth="165.0" text="Ajouter un étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonEditStudent" disable="true" mnemonicParsing="false" onAction="#onButtonEditStudentClick" prefHeight="24.0" prefWidth="190.0" text="Modifier étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonDeleteStudent" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteStudentClick" prefHeight="24.0" prefWidth="209.0" text="Supprimer étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
+                  <SplitPane dividerPositions="0.7906976744186046" layoutX="6.0" layoutY="7.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="167.0">
+                     <items>
+                        <VBox prefHeight="200.0" prefWidth="165.0">
+                           <children>
+                              <Button fx:id="buttonAddStudent" mnemonicParsing="false" onAction="#onButtonAddStudentClick" prefHeight="24.0" prefWidth="165.0" text="Ajouter un étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonEditStudent" disable="true" mnemonicParsing="false" onAction="#onButtonEditStudentClick" prefHeight="24.0" prefWidth="190.0" text="Modifier étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonDeleteStudent" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteStudentClick" prefHeight="24.0" prefWidth="209.0" text="Supprimer étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="165.0">
+                           <children>
+                              <Button fx:id="buttonShowGrade" disable="true" mnemonicParsing="false" prefHeight="24.0" prefWidth="175.0" text="Afficher les notes" />
+                           </children></VBox>
+                     </items>
+                  </SplitPane>
                </children></AnchorPane>
       </content>
     </Tab>
