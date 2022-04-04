@@ -1,7 +1,6 @@
 package ez.clap.gestionetudiant_aql.entities;
 
 import javafx.scene.control.ComboBox;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -10,6 +9,7 @@ public class Student {
     private String firstName;
     private String secondName;
     private ArrayList<Course> courseList;
+
 
     public Student(String firstName, String secondName, String studentID){
         this.studentID = studentID;
@@ -21,6 +21,7 @@ public class Student {
     public Student(String firstName, String secondName, String studentID, ArrayList<Course> courseList){
         this(firstName, secondName, studentID);
         this.courseList = courseList;
+
     }
 
     // Getters
