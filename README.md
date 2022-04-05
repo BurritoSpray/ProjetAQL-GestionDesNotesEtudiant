@@ -6,17 +6,17 @@ Fonctionnalitées:
   - Possibilité de gérer facilement les données
   - Gestion d'étudiants, de cours et de note
 
-Taches complétées:
+Tâches complétées:
   - Base du projet ( GUI, Classes Objets(Student, Course, Grade))
   - Gestion des étudiants(Ajouts, Modif, Suppress, Affichage)
 
-Taches restantes :
+Tâches restantes :
   - Création du GUI pour ajouter ou modifier un cours
-  - Implementation des boutons sur l'onglet cours
+  - Implémentation des boutons sur l'onglet cours
   - Nettoyer et optimiser le code
 
-Dispertion des taches:
-  - Simon: implementation de la classe Data
-  - William : implementation de l'interface pour afficher les notes
-  - Nicolas : implementation de la barre de recherche
-  - Jeremy : implementation de la parti cours de l'interface principale
+Dispertion des tâches:
+  - Simon: implémentation de la classe Data
+  - William : implémentation de l'interface pour afficher les notes
+  - Nicolas : implémentation de la barre de recherche et la boite d'option (ComboBox) pour chosir quel TableColumn afficher
+  - Jeremy : implémentation de la parti cours de l'interface principale
