@@ -41,6 +41,8 @@ public class MainWindow extends Application {
         MainWindowController mainWindowController = fxmlLoader.getController();
         TableView<Student> tableView = mainWindowController.tableViewStudent;
 
+        setupCourseTableView(mainWindowController);
+
         // Setup the TableView
         mainWindowController.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
         mainWindowController.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
@@ -63,6 +65,27 @@ public class MainWindow extends Application {
         });
 
 
+    }
+
+    private void setupCourseTableView(MainWindowController mainWindowController){
+        TableView<Course> tableViewCourse = mainWindowController.tableViewCourse;
+
+        mainWindowController.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course, String>("Title"));
+        mainWindowController.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseNumber"));
+        mainWindowController.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<Course, String>("Code"));
+        tableViewCourse.getItems().addAll(Data.getCourseList());
+
+        tableViewCourse.setOnMouseClicked(event ->{
+            int index = tableViewCourse.getSelectionModel().getFocusedIndex();
+            if(!tableViewCourse.selectionModelProperty().get().isEmpty()){
+                mainWindowController.buttonDeleteCourse.disableProperty().set(false);
+                mainWindowController.buttonEditCourse.disableProperty().set(false);
+            }
+            else{
+                mainWindowController.buttonDeleteCourse.disableProperty().set(true);
+                mainWindowController.buttonEditCourse.disableProperty().set(true);
+            }
+        });
     }
 
 
