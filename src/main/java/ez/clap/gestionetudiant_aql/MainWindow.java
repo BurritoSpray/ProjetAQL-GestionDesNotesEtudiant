@@ -7,8 +7,7 @@ import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -39,7 +38,7 @@ public class MainWindow extends Application {
 
     public void setupMainWindow() throws IOException {
         MainWindowController mainWindowController = fxmlLoader.getController();
-        TableView<Student> tableView = mainWindowController.tableViewStudent;
+        TableView<Student> tableView = mainWindowController.tableViewStudent; // TODO: Mettre nom attribut significatif
 
         // Setup the TableView
         mainWindowController.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
@@ -62,7 +61,33 @@ public class MainWindow extends Application {
             }
         });
 
+        // Setup TabPane
+        TabPane tabPane = mainWindowController.tabPane;
+        ComboBox<String> comboBox = mainWindowController.comboBoxSearchOption;
 
+        int tabIndex = tabPane.getSelectionModel().getSelectedIndex();
+        tabPane.setOnMouseClicked(event -> {
+            switch(tabIndex) {
+                case 0: {
+                    comboBox.getItems().clear();
+                    for (TableColumn<Student, ?> tableColumn: tableView.getColumns()) {
+                        comboBox.getItems().add(tableColumn.getText());
+                    }
+                    comboBox.getSelectionModel().selectFirst();
+                    System.out.println("Tab: " + "Étudiant");
+                    break;
+                }
+                // TODO: tableView à compléter car mauvais nom de column dans la ComboBox
+                case 1: {
+//                    comboBox.getItems().clear();
+//                    for (TableColumn<Student, ?> tableColumn: tableView.getColumns()) {
+//                        comboBox.getItems().add(tableColumn.getText());
+//                    }
+//                    System.out.println("Tab: " + "Cours");
+//                    break;
+                }
+            }
+        });
     }
 
 
