@@ -33,6 +33,8 @@ public class MainWindowController {
     public TextField textFieldSearch;
     @FXML
     public ComboBox comboBoxSearchOption;
+    @FXML
+    public TabPane tabPaneMain;
 
 
     @FXML
@@ -40,7 +42,6 @@ public class MainWindowController {
         Stage stage = setupStudentStage(Action.Create);
         stage.show();
     }
-
 
     @FXML
     private void onButtonEditStudentClick() throws IOException {

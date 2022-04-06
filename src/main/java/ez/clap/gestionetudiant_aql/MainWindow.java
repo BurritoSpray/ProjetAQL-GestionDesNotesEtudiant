@@ -62,7 +62,7 @@ public class MainWindow extends Application {
         });
 
         // Setup TabPane
-        TabPane tabPane = mainWindowController.tabPane;
+        TabPane tabPane = mainWindowController.tabPaneMain;
         ComboBox<String> comboBox = mainWindowController.comboBoxSearchOption;
 
         int tabIndex = tabPane.getSelectionModel().getSelectedIndex();
