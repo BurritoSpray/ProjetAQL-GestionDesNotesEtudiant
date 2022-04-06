@@ -41,107 +41,95 @@ public class MainWindowController {
 
 
     @FXML
-    private void onButtonAddStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.CREATE_STUDENT);
+    private void onButtonAddStudentClick() {
+        Stage stage = setupStudentStage(Action.CREATE_STUDENT, "manage-student-window.fxml");
         stage.show();
     }
 
 
     @FXML
-    private void onButtonEditStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.EDIT_STUDENT);
+    private void onButtonEditStudentClick() {
+        Stage stage = setupStudentStage(Action.EDIT_STUDENT, "manage-student-window.fxml");
         stage.show();
     }
 
     @FXML
-    private void onButtonDeleteStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.DELETE_STUDENT);
+    private void onButtonDeleteStudentClick() {
+        Stage stage = setupStudentStage(Action.DELETE_STUDENT, "delete-warning-window.fxml");
         stage.show();
     }
 
     @FXML
-    private void onButtonAddCourseClick() throws IOException {
+    private void onButtonAddCourseClick() {
         Stage stage = setupCourseStage(Action.CREATE_COURSE, "manage-course-window.fxml");
         stage.show();
     }
 
     @FXML
-    private void onButtonEditCourseClick() throws IOException {
+    private void onButtonEditCourseClick() {
         Stage stage = setupCourseStage(Action.EDIT_COURSE, "manage-course-window.fxml");
         stage.show();
     }
 
     @FXML
-    private void onButtonDeleteCourseClick() throws IOException {
+    private void onButtonDeleteCourseClick() {
         Stage stage = setupCourseStage(Action.DELETE_COURSE, "delete-warning-window.fxml");
         stage.show();
     }
 
 
 
-    private Stage setupStudentStage(Action action) throws IOException {
+    private Stage setupStudentStage(Action action, String resource) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("manage-student-window.fxml"));
-        Parent root; //= loader.load();
+        FXMLLoader loader = getLoaderFromResources(resource);
+        assert loader != null;
+        Parent root = loader.getRoot();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
         // TODO: Ajouter dans le CourseListView la liste de tous les cours disponible et implementer dans l'objet etudiant seulement eu qui son cocher
 
-        switch(action){
-            // switch pour setup la fenetre
-            case EDIT_STUDENT:{
-                root = loader.load();
+        switch (action) {
+            case EDIT_STUDENT -> {
                 stage.setTitle("Modifier l'étudiant");
                 ManageStudentController manageStudentController = loader.getController();
                 manageStudentController.loadStudent(tableViewStudent.getSelectionModel().getSelectedItem());
                 manageStudentController.buttonConfirm.setText("Modifier");
                 manageStudentController.buttonConfirm.setOnAction(event -> {
-                    if(isStudentFieldsValid(manageStudentController)){
-                        removeSelectedStudent(manageStudentController);
+                    if (isStudentFieldsValid(manageStudentController)) {
+                        removeSelectedStudent();
                         addStudentFromManageStudentController(manageStudentController);
                         closeWindow(manageStudentController.buttonConfirm);
-                    }else{
+                    } else {
                         showWarningPopup("Erreur", "Information manquante", "OK");
                     }
                 });
-                break;
             }
-            case CREATE_STUDENT:{
+            case CREATE_STUDENT -> {
                 stage.setTitle("Creer un étudiant");
-                root = loader.load();
                 ManageStudentController manageStudentController = loader.getController();
 
                 manageStudentController.buttonConfirm.setOnAction(event -> {
-                    if(isStudentFieldsValid(manageStudentController)){
+                    if (isStudentFieldsValid(manageStudentController)) {
                         addStudentFromManageStudentController(manageStudentController);
 
                         closeWindow(manageStudentController.buttonConfirm);
-                    }else {
+                    } else {
                         showWarningPopup("Erreur", "Information manquante!", "OK");
                     }
                 });
-                break;
             }
-            case DELETE_STUDENT:{
-                loader = new FXMLLoader(MainWindow.class.getResource("delete-warning-window.fxml"));
-                root = loader.load();
-
+            case DELETE_STUDENT -> {
                 stage.setTitle("Attention!");
                 DeleteWarningController deleteWarningController = loader.getController();
                 Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
                 deleteWarningController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
 
-                deleteWarningController.buttonConfirm.setOnAction(event->{
+                deleteWarningController.buttonConfirm.setOnAction(event -> {
                     Data.getStudentList().remove(selectedStudent);
                     tableViewStudent.getItems().remove(selectedStudent);
                     closeWindow(deleteWarningController.buttonConfirm);
                 });
-                break;
-            }
-            default:{
-                loader = new FXMLLoader(getClass().getResource("manage-student-window.fxml"));
-                root = loader.load();
             }
         }
 
@@ -149,10 +137,11 @@ public class MainWindowController {
         return stage;
     }
 
-    private Stage setupCourseStage (Action action, String resource) throws IOException {
+    private Stage setupCourseStage (Action action, String resource) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource(resource));
-        Parent root = loader.load();
+        FXMLLoader loader = getLoaderFromResources(resource);
+        assert loader != null;
+        Parent root = loader.getRoot();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
@@ -179,7 +168,7 @@ public class MainWindowController {
                 manageCourseController.buttonConfirm.setText("Modifier");
                 manageCourseController.buttonConfirm.setOnAction(event -> {
                     if(isCourseFieldsValid(manageCourseController)){
-                        removeSelectedCourse(manageCourseController);
+                        removeSelectedCourse();
                         addCourseFromManageCourseController(manageCourseController);
                         closeWindow(manageCourseController.buttonConfirm);
                     }
@@ -235,7 +224,7 @@ public class MainWindowController {
         tableViewStudent.getItems().setAll(Data.getStudentList());
     }
 
-    private void removeSelectedStudent(ManageStudentController manageStudentController){
+    private void removeSelectedStudent(){
         Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
         Data.getStudentList().remove(selectedStudent);
         tableViewStudent.getItems().remove(selectedStudent);
@@ -256,10 +245,21 @@ public class MainWindowController {
         tableViewCourse.getItems().setAll(Data.getCourseList());
     }
 
-    private void removeSelectedCourse(ManageCourseController manageCourseController){
+    private void removeSelectedCourse(){
         Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
         Data.getCourseList().remove(selectedCourse);
         tableViewCourse.getItems().remove(selectedCourse);
+    }
+
+    private FXMLLoader getLoaderFromResources(String resource){
+        try{
+            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource(resource));
+            loader.load();
+            return loader;
+        }catch(IOException e){
+            System.out.println("Verifier si " + resource + " existe dans le repertoire resources du projet!!!");
+        }
+        return null;
     }
 
 
