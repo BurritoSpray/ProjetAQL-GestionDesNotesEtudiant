@@ -73,7 +73,7 @@ public class MainWindowController {
 
     @FXML
     private void onButtonDeleteCourseClick() throws IOException {
-        Stage stage = setupCourseStage(Action.DELETE_COURSE, "delete-student-window.fxml");
+        Stage stage = setupCourseStage(Action.DELETE_COURSE, "delete-warning-window.fxml");
         stage.show();
     }
 
@@ -124,18 +124,18 @@ public class MainWindowController {
                 break;
             }
             case DELETE_STUDENT:{
-                loader = new FXMLLoader(MainWindow.class.getResource("delete-student-window.fxml"));
+                loader = new FXMLLoader(MainWindow.class.getResource("delete-warning-window.fxml"));
                 root = loader.load();
 
                 stage.setTitle("Attention!");
-                DeleteStudentController deleteStudentController = loader.getController();
+                DeleteWarningController deleteWarningController = loader.getController();
                 Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-                deleteStudentController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
+                deleteWarningController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
 
-                deleteStudentController.buttonConfirm.setOnAction(event->{
+                deleteWarningController.buttonConfirm.setOnAction(event->{
                     Data.getStudentList().remove(selectedStudent);
                     tableViewStudent.getItems().remove(selectedStudent);
-                    closeWindow(deleteStudentController.buttonConfirm);
+                    closeWindow(deleteWarningController.buttonConfirm);
                 });
                 break;
             }
@@ -192,7 +192,7 @@ public class MainWindowController {
             // TODO: vérifier le nom du controller et des attributs
             case DELETE_COURSE:{
                 stage.setTitle("Attention!");
-                DeleteStudentController deleteCourseController = loader.getController();
+                DeleteWarningController deleteCourseController = loader.getController();
                 Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
                 deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
 
