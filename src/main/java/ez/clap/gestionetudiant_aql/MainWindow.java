@@ -24,6 +24,7 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Data.loadDataFromFiles();
         loadTestData();
         fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 400);
