@@ -1,6 +1,7 @@
 package ez.clap.gestionetudiant_aql.controllers;
 
 import ez.clap.gestionetudiant_aql.MainWindow;
+import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.fxml.FXML;
@@ -16,39 +17,66 @@ import java.io.IOException;
 public class MainWindowController {
 
     enum Action{
-        Create,
-        Edit,
-        Delete
+        CREATE_STUDENT,
+        EDIT_STUDENT,
+        DELETE_STUDENT,
+        SHOW_GRADES,
+        CREATE_COURSE,
+        EDIT_COURSE,
+        DELETE_COURSE
     }
 
     @FXML
-    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent;
+    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent, buttonAddCourse, buttonEditCourse, buttonDeleteCourse;
     @FXML
     public TableView<Student> tableViewStudent;
+    @FXML
+    public TableView<Course> tableViewCourse;
     @FXML
     public TableColumn<Student,String> tableColumnFirstName, tableColumnSecondName, tableColumnNumber;
     @FXML
     public TableColumn<Student, ComboBox<String>> tableColumnCourse;
+    @FXML
+    public TableColumn<Course,String> tableColumnCourseTitle,tableColumnCourseNumber,tableColumnCourseCode;
 
 
     @FXML
     private void onButtonAddStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Create);
+        Stage stage = setupStudentStage(Action.CREATE_STUDENT);
         stage.show();
     }
 
 
     @FXML
     private void onButtonEditStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Edit);
+        Stage stage = setupStudentStage(Action.EDIT_STUDENT);
         stage.show();
     }
 
     @FXML
     private void onButtonDeleteStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Delete);
+        Stage stage = setupStudentStage(Action.DELETE_STUDENT);
         stage.show();
     }
+
+    @FXML
+    private void onButtonAddCourseClick() throws IOException {
+        Stage stage = setupCourseStage(Action.CREATE_COURSE, "manage-course-window.fxml");
+        stage.show();
+    }
+
+    @FXML
+    private void onButtonEditCourseClick() throws IOException {
+        Stage stage = setupCourseStage(Action.EDIT_COURSE, "manage-course-window.fxml");
+        stage.show();
+    }
+
+    @FXML
+    private void onButtonDeleteCourseClick() throws IOException {
+        Stage stage = setupCourseStage(Action.DELETE_COURSE, "delete-student-window.fxml");
+        stage.show();
+    }
+
 
 
     private Stage setupStudentStage(Action action) throws IOException {
@@ -62,7 +90,7 @@ public class MainWindowController {
 
         switch(action){
             // switch pour setup la fenetre
-            case Edit:{
+            case EDIT_STUDENT:{
                 root = loader.load();
                 stage.setTitle("Modifier l'étudiant");
                 ManageStudentController manageStudentController = loader.getController();
@@ -79,7 +107,7 @@ public class MainWindowController {
                 });
                 break;
             }
-            case Create:{
+            case CREATE_STUDENT:{
                 stage.setTitle("Creer un étudiant");
                 root = loader.load();
                 ManageStudentController manageStudentController = loader.getController();
@@ -95,7 +123,7 @@ public class MainWindowController {
                 });
                 break;
             }
-            case Delete:{
+            case DELETE_STUDENT:{
                 loader = new FXMLLoader(MainWindow.class.getResource("delete-student-window.fxml"));
                 root = loader.load();
 
@@ -120,6 +148,68 @@ public class MainWindowController {
         stage.setScene(new Scene(root));
         return stage;
     }
+
+    private Stage setupCourseStage (Action action, String resource) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource(resource));
+        Parent root = loader.load();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+
+        switch (action){
+            case CREATE_COURSE:{
+                stage.setTitle("Creer un cours");
+                ManageCourseController manageCourseController = loader.getController();
+
+                manageCourseController.buttonConfirm.setOnAction(event ->{
+                    if(isCourseFieldsValid(manageCourseController)){
+                        addCourseFromManageCourseController(manageCourseController);
+                        closeWindow(manageCourseController.buttonConfirm);
+                    }
+                    else{
+                        showWarningPopup("Erreur", "Information manquante","OK");
+                    }
+                });
+                break;
+            }
+            case EDIT_COURSE:{
+                stage.setTitle("Modifier le cours");
+                ManageCourseController manageCourseController = loader.getController();
+                manageCourseController.loadCourse(tableViewCourse.getSelectionModel().getSelectedItem());
+                manageCourseController.buttonConfirm.setText("Modifier");
+                manageCourseController.buttonConfirm.setOnAction(event -> {
+                    if(isCourseFieldsValid(manageCourseController)){
+                        removeSelectedCourse(manageCourseController);
+                        addCourseFromManageCourseController(manageCourseController);
+                        closeWindow(manageCourseController.buttonConfirm);
+                    }
+                    else{
+                        showWarningPopup("Erreur", "Information manquante", "OK");
+                    }
+                });
+                break;
+            }
+            // TODO: vérifier le nom du controller et des attributs
+            case DELETE_COURSE:{
+                stage.setTitle("Attention!");
+                DeleteStudentController deleteCourseController = loader.getController();
+                Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
+                deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
+
+                deleteCourseController.buttonConfirm.setOnAction(event -> {
+                    Data.getCourseList().remove(selectedCourse);
+                    tableViewCourse.getItems().remove(selectedCourse);
+                    closeWindow(deleteCourseController.buttonConfirm);
+                });
+                break;
+            }
+        }
+
+        stage.setScene(new Scene(root));
+        return stage;
+    }
+
+
 
     private boolean isStudentFieldsValid(ManageStudentController manageStudentController){
         return !manageStudentController.textFieldFirstName.getText().isEmpty() &&
@@ -150,6 +240,30 @@ public class MainWindowController {
         Data.getStudentList().remove(selectedStudent);
         tableViewStudent.getItems().remove(selectedStudent);
     }
+
+    // TODO: enlever la répétition
+    private  boolean isCourseFieldsValid(ManageCourseController manageCourseController){
+        return !manageCourseController.textFieldNumber.getText().isEmpty() &&
+                !manageCourseController.textFieldCode.getText().isEmpty() &&
+                !manageCourseController.textFieldTitle.getText().isEmpty();
+    }
+
+    private  void addCourseFromManageCourseController(ManageCourseController manageCourseController){
+        Course course = new Course(manageCourseController.textFieldTitle.getText(),
+                manageCourseController.textFieldCode.getText(),
+                manageCourseController.textFieldNumber.getText());
+        Data.getCourseList().add(course);
+        tableViewCourse.getItems().setAll(Data.getCourseList());
+    }
+
+    private void removeSelectedCourse(ManageCourseController manageCourseController){
+        Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
+        Data.getCourseList().remove(selectedCourse);
+        tableViewCourse.getItems().remove(selectedCourse);
+    }
+
+
+
 
     private void closeWindow(Control control){
         ((Stage)control.getScene().getWindow()).close();
