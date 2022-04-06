@@ -16,45 +16,55 @@ import java.io.IOException;
 public class MainWindowController {
 
     enum Action{
-        Create,
-        Edit,
-        Delete
+        CREATE_STUDENT,
+        EDIT_STUDENT,
+        DELETE_STUDENT,
+        SHOW_GRADES
     }
 
     @FXML
-    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent;
+    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent, buttonShowGrade;
     @FXML
     public TableView<Student> tableViewStudent;
     @FXML
     public TableColumn<Student,String> tableColumnFirstName, tableColumnSecondName, tableColumnNumber;
     @FXML
     public TableColumn<Student, ComboBox<String>> tableColumnCourse;
+    @FXML
+    public TabPane tabPaneMain;
 
 
     @FXML
     private void onButtonAddStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Create);
+        Stage stage = setupStudentStage(Action.CREATE_STUDENT, "manage-student-window.fxml");
         stage.show();
     }
 
 
     @FXML
     private void onButtonEditStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Edit);
+        Stage stage = setupStudentStage(Action.EDIT_STUDENT, "manage-student-window.fxml");
         stage.show();
     }
 
     @FXML
     private void onButtonDeleteStudentClick() throws IOException {
-        Stage stage = setupStudentStage(Action.Delete);
+        Stage stage = setupStudentStage(Action.DELETE_STUDENT, "delete-student-window.fxml");
+        stage.showAndWait();
+        tableViewStudent.getFocusModel().focusNext();
+    }
+
+    @FXML
+    private void onButtonShowGrades() throws IOException {
+        Stage stage = setupStudentStage(Action.SHOW_GRADES, "manage-grade-window.fxml");
         stage.show();
     }
 
 
-    private Stage setupStudentStage(Action action) throws IOException {
+    private Stage setupStudentStage(Action action, String resourceName) throws IOException {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("manage-student-window.fxml"));
-        Parent root;
+        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource(resourceName));
+        Parent root = loader.load();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
@@ -62,8 +72,7 @@ public class MainWindowController {
 
         switch(action){
             // switch pour setup la fenetre
-            case Edit:{
-                root = loader.load();
+            case EDIT_STUDENT:{
                 stage.setTitle("Modifier l'étudiant");
                 ManageStudentController manageStudentController = loader.getController();
                 manageStudentController.loadStudent(tableViewStudent.getSelectionModel().getSelectedItem());
@@ -79,9 +88,8 @@ public class MainWindowController {
                 });
                 break;
             }
-            case Create:{
+            case CREATE_STUDENT:{
                 stage.setTitle("Creer un étudiant");
-                root = loader.load();
                 ManageStudentController manageStudentController = loader.getController();
 
                 manageStudentController.buttonConfirm.setOnAction(event -> {
@@ -95,10 +103,7 @@ public class MainWindowController {
                 });
                 break;
             }
-            case Delete:{
-                loader = new FXMLLoader(MainWindow.class.getResource("delete-student-window.fxml"));
-                root = loader.load();
-
+            case DELETE_STUDENT:{
                 stage.setTitle("Attention!");
                 DeleteStudentController deleteStudentController = loader.getController();
                 Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
@@ -111,9 +116,8 @@ public class MainWindowController {
                 });
                 break;
             }
-            default:{
-                loader = new FXMLLoader(getClass().getResource("manage-student-window.fxml"));
-                root = loader.load();
+            case SHOW_GRADES:{
+                stage.setTitle("Gestionnaire");
             }
         }
 
