@@ -63,6 +63,10 @@ public class MainWindow extends Application {
         TableView<Student> tableViewStudent = mainWindowController.tableViewStudent;
 
         MainWindowController mainWindowController = fxmlLoader.getController();
+        mainWindowController.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
+        mainWindowController.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
+        mainWindowController.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
+        mainWindowController.tableColumnCourse.setCellValueFactory(new PropertyValueFactory<Student, ComboBox<String>>("CourseListAsComboBox"));
         TableView<Student> tableView = mainWindowController.tableViewStudent;
         tableViewStudent.getItems().addAll(Data.getStudentList());
 
