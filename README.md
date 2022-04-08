@@ -20,3 +20,4 @@ Dispertion des tâches:
   - William : implémentation de l'interface pour afficher les notes
   - Nicolas : implémentation de la barre de recherche et la boite d'option (ComboBox) pour chosir quel TableColumn afficher
   - Jeremy  : Doit se trouver une nouvelle tache (Une Machine le gars)
+
