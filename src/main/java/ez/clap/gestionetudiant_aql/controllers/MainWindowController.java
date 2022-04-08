@@ -199,7 +199,6 @@ public class MainWindowController {
     }
 
 
-
     private boolean isStudentFieldsValid(ManageStudentController manageStudentController){
         return !manageStudentController.textFieldFirstName.getText().isEmpty() &&
                 !manageStudentController.textFieldSecondName.getText().isEmpty() &&
@@ -261,9 +260,6 @@ public class MainWindowController {
         }
         return null;
     }
-
-
-
 
     private void closeWindow(Control control){
         ((Stage)control.getScene().getWindow()).close();
