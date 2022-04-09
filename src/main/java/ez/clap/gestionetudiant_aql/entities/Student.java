@@ -10,7 +10,6 @@ public class Student {
     private String secondName;
     private ArrayList<Course> courseList;
 
-
     public Student(String firstName, String secondName, String studentID){
         this.studentID = studentID;
         this.firstName = firstName;
@@ -21,7 +20,6 @@ public class Student {
     public Student(String firstName, String secondName, String studentID, ArrayList<Course> courseList){
         this(firstName, secondName, studentID);
         this.courseList = courseList;
-
     }
 
     // Getters

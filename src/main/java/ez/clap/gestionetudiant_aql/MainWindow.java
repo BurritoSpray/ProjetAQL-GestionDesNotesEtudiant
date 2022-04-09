@@ -5,6 +5,7 @@ import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.application.Application;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 
 public class MainWindow extends Application {
     private FXMLLoader fxmlLoader;
+    private MainWindowController mainWindowController;
     public static Stage primaryStage;
 
     @Override
@@ -25,6 +27,7 @@ public class MainWindow extends Application {
         loadTestData();
         fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+        mainWindowController = fxmlLoader.getController();
         setupMainWindow();
         stage.setTitle("Gestionnaire d'étudiants");
         stage.setScene(scene);
@@ -38,31 +41,49 @@ public class MainWindow extends Application {
     }
 
     public void setupMainWindow() throws IOException {
-        MainWindowController mainWindowController = fxmlLoader.getController();
-        TableView<Student> tableView = mainWindowController.tableViewStudent;
+        setupStudentTableView();
+        setupCourseTableView();
+    }
 
-        // Setup the TableView
+    private void setupCourseTableView(){
+        TableView<Course> tableViewCourse = mainWindowController.tableViewCourse;
+
+        mainWindowController.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course, String>("Title"));
+        mainWindowController.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseNumber"));
+        mainWindowController.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<Course, String>("Code"));
+        tableViewCourse.getItems().addAll(Data.getCourseList());
+
+        tableViewCourse.setOnMouseClicked(event ->
+                setCourseButtons(tableViewCourse.selectionModelProperty().get().isEmpty()));
+        tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
+                setCourseButtons(tableViewCourse.getItems().size() == 0));
+    }
+
+    private void setupStudentTableView(){
+        TableView<Student> tableViewStudent = mainWindowController.tableViewStudent;
+
+        MainWindowController mainWindowController = fxmlLoader.getController();
+        mainWindowController.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
         mainWindowController.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
         mainWindowController.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
-        mainWindowController.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
         mainWindowController.tableColumnCourse.setCellValueFactory(new PropertyValueFactory<Student, ComboBox<String>>("CourseListAsComboBox"));
-        tableView.getItems().addAll(Data.getStudentList());
+        tableViewStudent.getItems().addAll(Data.getStudentList());
 
-        tableView.setOnMouseClicked(event -> {
-            int idx = tableView.getSelectionModel().getFocusedIndex();
-            System.out.println("Idx = " + idx + "\n" +
-                    tableView.getItems().get(idx));
-            System.out.println(event.getTarget().getClass());
-            if(!tableView.selectionModelProperty().get().isEmpty()) {
-                mainWindowController.buttonDeleteStudent.disableProperty().set(false);
-                mainWindowController.buttonEditStudent.disableProperty().set(false);
-            }else{
-                mainWindowController.buttonDeleteStudent.disableProperty().set(true);
-                mainWindowController.buttonEditStudent.disableProperty().set(true);
-            }
-        });
+        tableViewStudent.setOnMouseClicked(event ->
+                setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
 
+        tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event->
+                setStudentButtons(tableViewStudent.getItems().size() == 0));
+    }
 
+    private void setStudentButtons(boolean disabled){
+        mainWindowController.buttonDeleteStudent.disableProperty().set(disabled);
+        mainWindowController.buttonEditStudent.disableProperty().set(disabled);
+    }
+
+    private void setCourseButtons(boolean disabled){
+        mainWindowController.buttonDeleteCourse.disableProperty().set(disabled);
+        mainWindowController.buttonEditCourse.disableProperty().set(disabled);
     }
 
 
