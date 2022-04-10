@@ -43,7 +43,15 @@ public class Data {
 
        File[] testFile = studentFile.listFiles();
        for (int i = 0; i < testFile.length; i++) {
-           System.out.println(readFile(testFile[i]));
+           ArrayList<String> studentFileContent = readFile(testFile[i]);
+           // ArrayList<Course> CoursesInStudent = new ArrayList<Course>();
+           Student newStudent = new Student(studentFileContent.get(1), studentFileContent.get(2), studentFileContent.get(0));
+           // for (int j = 3; j < studentFileContent.size(); j++) {
+           studentList.add(newStudent);
+           //}
+           System.out.println(newStudent);
+           System.out.println(studentList);
+
            // Crée un objet student et check pour tous les paramètres dedans le file et les ajouter dans l'objet étudiant.
            // Ensuite ajouter objet étudiant dans le arraylist student list.
        }
