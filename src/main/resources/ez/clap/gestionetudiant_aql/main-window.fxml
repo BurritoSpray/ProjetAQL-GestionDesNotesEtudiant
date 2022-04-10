@@ -3,7 +3,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
    <children>
       <TabPane fx:id="tabPaneMain" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
