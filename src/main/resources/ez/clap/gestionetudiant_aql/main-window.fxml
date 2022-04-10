@@ -4,80 +4,88 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
-  <tabs>
-    <Tab text="Étudiant">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableViewStudent" layoutX="176.0" layoutY="6.0" prefHeight="355.0" prefWidth="520.0">
-                    <columns>
-                      <TableColumn fx:id="tableColumnNumber" editable="false" prefWidth="98.39996337890625" reorderable="false" resizable="false" text="Numéro" />
-                      <TableColumn fx:id="tableColumnSecondName" editable="false" prefWidth="126.40008544921875" reorderable="false" resizable="false" text="Nom" />
-                        <TableColumn fx:id="tableColumnFirstName" editable="false" prefWidth="145.60000610351562" reorderable="false" resizable="false" text="Prénom" />
-                        <TableColumn fx:id="tableColumnCourse" editable="false" prefWidth="148.0" reorderable="false" resizable="false" text="Cours" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <VBox layoutX="6.0" layoutY="7.0" prefHeight="200.0" prefWidth="165.0">
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.MainWindowController">
+   <children>
+      <TabPane fx:id="tabPaneMain" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Étudiant">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="buttonAddStudent" mnemonicParsing="false" onAction="#onButtonAddStudentClick" prefHeight="24.0" prefWidth="165.0" text="Ajouter un étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonEditStudent" disable="true" mnemonicParsing="false" onAction="#onButtonEditStudentClick" prefHeight="24.0" prefWidth="190.0" text="Modifier étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonDeleteStudent" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteStudentClick" prefHeight="24.0" prefWidth="209.0" text="Supprimer étudiant">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
+                        <TableView fx:id="tableViewStudent" layoutX="176.0" layoutY="6.0" prefHeight="355.0" prefWidth="520.0">
+                          <columns>
+                            <TableColumn fx:id="tableColumnNumber" editable="false" prefWidth="98.39996337890625" reorderable="false" resizable="false" text="Numéro" />
+                            <TableColumn fx:id="tableColumnSecondName" editable="false" prefWidth="126.40008544921875" reorderable="false" resizable="false" text="Nom" />
+                              <TableColumn fx:id="tableColumnFirstName" editable="false" prefWidth="145.60000610351562" reorderable="false" resizable="false" text="Prénom" />
+                              <TableColumn fx:id="tableColumnCourse" editable="false" prefWidth="148.0" reorderable="false" resizable="false" text="Cours" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <VBox layoutX="6.0" layoutY="7.0" prefHeight="200.0" prefWidth="165.0">
+                           <children>
+                              <Button fx:id="buttonAddStudent" mnemonicParsing="false" onAction="#onButtonAddStudentClick" prefHeight="24.0" prefWidth="165.0" text="Ajouter un étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonEditStudent" disable="true" mnemonicParsing="false" onAction="#onButtonEditStudentClick" prefHeight="24.0" prefWidth="190.0" text="Modifier étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonDeleteStudent" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteStudentClick" prefHeight="24.0" prefWidth="209.0" text="Supprimer étudiant">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Cours">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableViewCourse" layoutX="176.0" layoutY="6.0" prefHeight="355.0" prefWidth="520.0">
-                    <columns>
-                        <TableColumn fx:id="tableColumnCourseTitle" prefWidth="120.00006103515625" reorderable="false" text="Titre" />
-                      <TableColumn fx:id="tableColumnCourseNumber" prefWidth="143.199951171875" reorderable="false" text="Numéro" />
-                      <TableColumn fx:id="tableColumnCourseCode" prefWidth="148.800048828125" reorderable="false" text="Code" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <VBox layoutX="6.0" layoutY="7.0" prefHeight="97.0" prefWidth="166.0">
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Cours">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="buttonAddCourse" mnemonicParsing="false" onAction="#onButtonAddCourseClick" prefHeight="24.0" prefWidth="172.0" text="Ajouter un cours">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonEditCourse" disable="true" mnemonicParsing="false" onAction="#onButtonEditCourseClick" prefHeight="24.0" prefWidth="200.0" text="Modifier cours">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="buttonDeleteCourse" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteCourseClick" prefHeight="24.0" prefWidth="184.0" text="Supprimer cours">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Button>
+                        <TableView fx:id="tableViewCourse" layoutX="176.0" layoutY="6.0" prefHeight="355.0" prefWidth="520.0">
+                          <columns>
+                              <TableColumn fx:id="tableColumnCourseTitle" prefWidth="120.00006103515625" reorderable="false" text="Titre" />
+                            <TableColumn fx:id="tableColumnCourseNumber" prefWidth="143.199951171875" reorderable="false" text="Numéro" />
+                            <TableColumn fx:id="tableColumnCourseCode" prefWidth="148.800048828125" reorderable="false" text="Code" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <VBox layoutX="6.0" layoutY="7.0" prefHeight="97.0" prefWidth="166.0">
+                           <children>
+                              <Button fx:id="buttonAddCourse" mnemonicParsing="false" onAction="#onButtonAddCourseClick" prefHeight="24.0" prefWidth="172.0" text="Ajouter un cours">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonEditCourse" disable="true" mnemonicParsing="false" onAction="#onButtonEditCourseClick" prefHeight="24.0" prefWidth="200.0" text="Modifier cours">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="buttonDeleteCourse" disable="true" mnemonicParsing="false" onAction="#onButtonDeleteCourseClick" prefHeight="24.0" prefWidth="184.0" text="Supprimer cours">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <TextField fx:id="textFieldSearch" layoutX="534.0" layoutY="1.0" promptText="rechercher" />
+      <ComboBox fx:id="comboBoxSearchOption" layoutX="375.0" layoutY="1.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
