@@ -3,7 +3,7 @@ package ez.clap.gestionetudiant_aql.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
     private String courseNumber;
     private String code;
     private String title;
