@@ -5,10 +5,15 @@ import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -43,7 +48,27 @@ public class MainWindow extends Application {
     public void setupMainWindow() throws IOException {
         setupStudentTableView();
         setupCourseTableView();
+        setupComboBox();
     }
+
+
+    private void setupComboBox() {
+        TabPane tabPane = mainWindowController.tabPaneMain;
+        tabPane.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, newIndex) -> {
+            if (newIndex.intValue() == 0) {
+                mainWindowController.comboBoxSearchOption.getItems().clear();
+                mainWindowController.comboBoxSearchOption.getItems().addAll("Numéro", "Nom-Prénom");
+            } else {
+                mainWindowController.comboBoxSearchOption.getItems().clear();
+                mainWindowController.comboBoxSearchOption.getItems().addAll("Titre", "Code", "Numéro");
+            }
+            mainWindowController.comboBoxSearchOption.getSelectionModel().selectFirst();
+            mainWindowController.textFieldSearch.clear();
+        });
+        tabPane.getSelectionModel().selectNext();
+        tabPane.getSelectionModel().selectFirst();
+    }
+
 
     private void setupCourseTableView() {
         TableView<Course> tableViewCourse = mainWindowController.tableViewCourse;
