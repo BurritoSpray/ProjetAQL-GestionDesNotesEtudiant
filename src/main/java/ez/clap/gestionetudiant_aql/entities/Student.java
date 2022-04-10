@@ -2,10 +2,11 @@ package ez.clap.gestionetudiant_aql.entities;
 
 import javafx.scene.control.ComboBox;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Serializable {
     private String studentID;
     private String firstName;
     private String secondName;

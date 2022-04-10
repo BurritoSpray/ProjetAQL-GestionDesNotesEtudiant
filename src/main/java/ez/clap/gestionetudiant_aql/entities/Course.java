@@ -1,8 +1,9 @@
 package ez.clap.gestionetudiant_aql.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
     private String courseNumber;
     private String code;
     private String title;
@@ -32,6 +33,15 @@ public class Course {
 
     public void setTitle(String title){
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseNumber='" + courseNumber + '\'' +
+                ", code='" + code + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 
     @Override
