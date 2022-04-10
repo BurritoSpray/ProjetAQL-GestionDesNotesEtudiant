@@ -1,7 +1,6 @@
 package ez.clap.gestionetudiant_aql.entities;
 
 import javafx.scene.control.ComboBox;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -43,8 +42,13 @@ public class Student {
         for(Course course : courseList){
             combobox.getItems().add(course.getTitle());
         }
+        if(this.courseList.size() == 0) {
+            combobox.getItems().add("Aucun Cours");
+        }
+
         combobox.getSelectionModel().selectFirst();
         combobox.setPrefWidth(140);
+
         return combobox;
     }
 

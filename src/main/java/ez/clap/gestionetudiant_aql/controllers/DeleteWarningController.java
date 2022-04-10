@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class DeleteStudentController {
+public class DeleteWarningController {
     @FXML
     public Button buttonConfirm, buttonCancel;
     @FXML
