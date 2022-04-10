@@ -14,6 +14,15 @@ public class Data {
 
     private static ArrayList<Course> courseList = new ArrayList<>();
 
+    private static File mainFile = validateFolder("./Data");
+
+    private static File studentFile = new File(mainFile.getPath() + "/student.txt");
+
+    private static File courseFile = new File(mainFile.getPath() + "/course.txt");
+
+
+
+
     public static ArrayList<Student> getStudentList(){
         return Data.studentList;
     }
@@ -61,24 +70,8 @@ public class Data {
         // Chaque dossier, vérifier le nom de chaque fichier dedans.
     }
 
-    private static File validateFile(String filePath) {
-        File fileToValidate = new File(filePath);
-        fileToValidate.mkdir();
-        return fileToValidate;
-    }
-
-    private static ArrayList<String> readFile(File fileToRead) throws FileNotFoundException {
-        Scanner scan = new Scanner(fileToRead);
-        ArrayList<String> fileContent = new ArrayList<String>();
-        while(scan.hasNextLine()) {
-            fileContent.add(scan.nextLine());
-        }
-        return fileContent;
-    }
-
-    // private static File iterateFiles
-
-    public static void saveDataFromFiles(){
-
+    public static void saveDataToFiles(){
+        writeCourseToFile();
+        writeStudentToFile();
     }
 }
