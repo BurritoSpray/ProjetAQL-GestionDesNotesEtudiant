@@ -3,9 +3,7 @@ package ez.clap.gestionetudiant_aql.utilities;
 import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,39 +37,87 @@ public class Data {
         Data.courseList = courseList;
     }
 
-    public static void loadDataFromFiles() throws FileNotFoundException {
-        // File dir  = new File("");
 
-        //Verifier si le dossier data existe:
-        //Si il existe pas, crée les sous dossiers:
-        File mainFile = validateFile("./Data");
+    public static void loadDataFromFiles() {
+        // Faire une fonction pour ne pas dupliquer le code.
+        //Student
+        ArrayList<Object> studentObjectList = readObjectListFromFile(studentFile);
+        Data.studentList.clear();
+        for (Object o : studentObjectList) {
+            Data.studentList.add((Student)o);
+        }
 
-       File studentFile = validateFile(mainFile.getPath() + "/Student");
-       File courseFile = validateFile(mainFile.getPath() + "/Course");
-       File gradeFile = validateFile(mainFile.getPath() + "/Grade");
+        // Course
+        ArrayList<Object> courseObjectList = readObjectListFromFile(courseFile);
+        Data.courseList.clear();
+        for(Object o : courseObjectList){
+            Data.courseList.add((Course)o);
+        }
 
-       File[] testFile = studentFile.listFiles();
-       for (int i = 0; i < testFile.length; i++) {
-           ArrayList<String> studentFileContent = readFile(testFile[i]);
-           // ArrayList<Course> CoursesInStudent = new ArrayList<Course>();
-           Student newStudent = new Student(studentFileContent.get(1), studentFileContent.get(2), studentFileContent.get(0));
-           // for (int j = 3; j < studentFileContent.size(); j++) {
-           studentList.add(newStudent);
-           //}
-           System.out.println(newStudent);
-           System.out.println(studentList);
-
-           // Crée un objet student et check pour tous les paramètres dedans le file et les ajouter dans l'objet étudiant.
-           // Ensuite ajouter objet étudiant dans le arraylist student list.
-       }
-
-
-       //Chargé le contenu de chacun des dossiers un par un.
-        // Chaque dossier, vérifier le nom de chaque fichier dedans.
     }
 
     public static void saveDataToFiles(){
         writeCourseToFile();
         writeStudentToFile();
     }
+
+    private static File validateFolder(String folderPath) {
+        File fileToValidate = new File(folderPath);
+        fileToValidate.mkdir();
+        return fileToValidate;
+    }
+
+    private static void writeStudentToFile() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(Data.studentFile);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            for(Student student : Data.studentList) {
+                objectOutputStream.writeObject(student);
+            }
+
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeCourseToFile() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(Data.courseFile);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            for(Course course : Data.courseList) {
+                objectOutputStream.writeObject(course);
+            }
+
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static ArrayList<Object> readObjectListFromFile(File file){
+        ArrayList<Object> objectList = new ArrayList<>();
+        if(file.exists()) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                while (fileInputStream.available() > 0) {
+                    objectList.add(objectInputStream.readObject());
+                }
+
+                return objectList;
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return objectList;
+    }
+
+
 }
