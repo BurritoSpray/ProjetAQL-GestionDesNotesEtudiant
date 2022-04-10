@@ -20,7 +20,6 @@ public class Data {
 
 
 
-
     public static ArrayList<Student> getStudentList(){
         return Data.studentList;
     }
