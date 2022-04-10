@@ -38,7 +38,12 @@ public class MainWindowController {
     public TableColumn<Student, ComboBox<String>> tableColumnCourse;
     @FXML
     public TableColumn<Course,String> tableColumnCourseTitle,tableColumnCourseNumber,tableColumnCourseCode;
-
+    @FXML
+    public TextField textFieldSearch;
+    @FXML
+    public ComboBox comboBoxSearchOption;
+    @FXML
+    public TabPane tabPaneMain;
 
     @FXML
     private void onButtonAddStudentClick() {

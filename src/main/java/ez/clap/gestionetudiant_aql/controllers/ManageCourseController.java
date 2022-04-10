@@ -1,10 +1,8 @@
 package ez.clap.gestionetudiant_aql.controllers;
 
 import ez.clap.gestionetudiant_aql.entities.Course;
-import ez.clap.gestionetudiant_aql.entities.Student;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
