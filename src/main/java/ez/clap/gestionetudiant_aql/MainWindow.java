@@ -98,6 +98,11 @@ public class MainWindow extends Application {
                 }
                 return false;
             });
+            if(filteredCourse.size() == 0){
+                setCourseButtons(true);
+            }else{
+                tableViewCourse.getSelectionModel().selectFirst();
+            }
         }));
 
         SortedList<Course> sortedCourse = new SortedList<>(filteredCourse);
@@ -136,6 +141,11 @@ public class MainWindow extends Application {
                         return student.getSecondName().toLowerCase().contains(lowerCaseFilter);
                 }
             });
+            if(filteredStudent.size() == 0){
+                setStudentButtons(true);
+            }else{
+                tableViewStudent.getSelectionModel().selectFirst();
+            }
         }));
 
         SortedList<Student> sortedStudent = new SortedList<>(filteredStudent);
