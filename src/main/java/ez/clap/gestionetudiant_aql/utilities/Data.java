@@ -2,15 +2,16 @@ package ez.clap.gestionetudiant_aql.utilities;
 
 import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Data {
-    private static ArrayList<Student> studentList = new ArrayList<>();
+    private static ObservableList<Student> studentList = FXCollections.observableArrayList();
 
-    private static ArrayList<Course> courseList = new ArrayList<>();
+    private static ObservableList<Course> courseList = FXCollections.observableArrayList();
 
     private static File mainFile = validateFolder("./Data");
 
@@ -20,20 +21,12 @@ public class Data {
 
 
 
-    public static ArrayList<Student> getStudentList(){
+    public static ObservableList<Student> getStudentList(){
         return Data.studentList;
     }
 
-    public static ArrayList<Course> getCourseList(){
+    public static ObservableList<Course> getCourseList(){
         return Data.courseList;
-    }
-
-    public static void setStudentList(ArrayList<Student> studentList){
-        Data.studentList = studentList;
-    }
-
-    public static void setCourseList(ArrayList<Course> courseList){
-        Data.courseList = courseList;
     }
 
 
