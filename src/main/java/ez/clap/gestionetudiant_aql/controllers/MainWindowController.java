@@ -41,7 +41,7 @@ public class MainWindowController {
     @FXML
     public TextField textFieldSearch;
     @FXML
-    public ComboBox comboBoxSearchOption;
+    public ComboBox<String> comboBoxSearchOption;
     @FXML
     public TabPane tabPaneMain;
 
@@ -132,7 +132,7 @@ public class MainWindowController {
 
                 deleteWarningController.buttonConfirm.setOnAction(event -> {
                     Data.getStudentList().remove(selectedStudent);
-                    tableViewStudent.getItems().remove(selectedStudent);
+//                    tableViewStudent.getItems().remove(selectedStudent);
                     closeWindow(deleteWarningController.buttonConfirm);
                 });
             }
@@ -225,13 +225,13 @@ public class MainWindowController {
                 manageStudentController.textFieldSecondName.getText(),
                 manageStudentController.textFieldNumber.getText());
         Data.getStudentList().add(student);
-        tableViewStudent.getItems().setAll(Data.getStudentList());
+//        tableViewStudent.getItems().add(student);
     }
 
     private void removeSelectedStudent(){
         Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
         Data.getStudentList().remove(selectedStudent);
-        tableViewStudent.getItems().remove(selectedStudent);
+//        tableViewStudent.getItems().remove(selectedStudent);
     }
 
     // TODO: enlever la répétition
@@ -246,13 +246,13 @@ public class MainWindowController {
                 manageCourseController.textFieldCode.getText(),
                 manageCourseController.textFieldNumber.getText());
         Data.getCourseList().add(course);
-        tableViewCourse.getItems().setAll(Data.getCourseList());
+        //tableViewCourse.getItems().addAll(Data.getCourseList());
     }
 
     private void removeSelectedCourse(){
         Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
         Data.getCourseList().remove(selectedCourse);
-        tableViewCourse.getItems().remove(selectedCourse);
+//        tableViewCourse.getItems().remove(selectedCourse);
     }
 
     private FXMLLoader getLoaderFromResources(String resource){
