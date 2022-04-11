@@ -192,7 +192,6 @@ public class MainWindowController {
 
                 deleteCourseController.buttonConfirm.setOnAction(event -> {
                     Data.getCourseList().remove(selectedCourse);
-                    tableViewCourse.getItems().remove(selectedCourse);
                     closeWindow(deleteCourseController.buttonConfirm);
                 });
                 break;
