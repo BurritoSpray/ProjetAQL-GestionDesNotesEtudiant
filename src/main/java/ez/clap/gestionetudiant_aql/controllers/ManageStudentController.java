@@ -18,17 +18,12 @@ public class ManageStudentController {
     public TextField textFieldNumber, textFieldFirstName, textFieldSecondName;
     @FXML
     public ListView<CheckBox> listViewCourse;
-
-    @FXML
-    private void onButtonConfirmClick(){
-
-    }
-
     @FXML
     private void onButtonCancelClick(){
         Stage stage = (Stage) buttonCancel.getScene().getWindow();
         stage.close();
     }
+
 
     public void loadStudent(Student student){
         textFieldFirstName.setText(student.getFirstName());
