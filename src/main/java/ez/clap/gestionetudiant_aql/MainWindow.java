@@ -23,6 +23,7 @@ public class MainWindow extends Application {
     private MainWindowController mainWindowController;
     public static Stage primaryStage;
 
+
     @Override
     public void start(Stage stage) throws IOException {
         Data.loadDataFromFiles();
@@ -47,12 +48,12 @@ public class MainWindow extends Application {
         launch();
     }
 
+
     public void setupMainWindow() {
         setupStudentTableView();
         setupCourseTableView();
         setupComboBox();
     }
-
 
     private void setupComboBox() {
         TabPane tabPane = mainWindowController.tabPaneMain;
@@ -70,7 +71,6 @@ public class MainWindow extends Application {
         tabPane.getSelectionModel().selectNext();
         tabPane.getSelectionModel().selectFirst();
     }
-
 
     private void setupCourseTableView() {
         TableView<Course> tableViewCourse = mainWindowController.tableViewCourse;
