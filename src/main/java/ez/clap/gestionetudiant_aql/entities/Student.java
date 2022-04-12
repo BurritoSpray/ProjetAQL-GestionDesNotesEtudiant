@@ -85,10 +85,10 @@ public class Student implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Student student = (Student) object;
         return getStudentID().equals(student.getStudentID()) &&
                 getFirstName().equals(student.getFirstName()) &&
                 getSecondName().equals(student.getSecondName());

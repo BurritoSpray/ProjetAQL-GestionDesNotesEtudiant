@@ -10,16 +10,10 @@ import java.util.ArrayList;
 
 public class Data {
     private static ObservableList<Student> studentList = FXCollections.observableArrayList();
-
     private static ObservableList<Course> courseList = FXCollections.observableArrayList();
-
     private static File mainFile = validateFolder("./Data");
-
     private static File studentFile = new File(mainFile.getPath() + "/student.txt");
-
     private static File courseFile = new File(mainFile.getPath() + "/course.txt");
-
-
 
     public static ObservableList<Student> getStudentList(){
         return Data.studentList;
@@ -29,21 +23,20 @@ public class Data {
         return Data.courseList;
     }
 
-
     public static void loadDataFromFiles() {
         // Faire une fonction pour ne pas dupliquer le code.
         //Student
         ArrayList<Object> studentObjectList = readObjectListFromFile(studentFile);
         Data.studentList.clear();
-        for (Object o : studentObjectList) {
-            Data.studentList.add((Student)o);
+        for (Object object : studentObjectList) {
+            Data.studentList.add((Student)object);
         }
 
         // Course
         ArrayList<Object> courseObjectList = readObjectListFromFile(courseFile);
         Data.courseList.clear();
-        for(Object o : courseObjectList){
-            Data.courseList.add((Course)o);
+        for(Object object : courseObjectList){
+            Data.courseList.add((Course)object);
         }
 
     }
@@ -71,8 +64,8 @@ public class Data {
             objectOutputStream.close();
             fileOutputStream.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
@@ -88,8 +81,8 @@ public class Data {
             objectOutputStream.close();
             fileOutputStream.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
@@ -104,8 +97,8 @@ public class Data {
                 }
 
                 return objectList;
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (IOException | ClassNotFoundException exception) {
+                exception.printStackTrace();
             }
         }
         return objectList;
