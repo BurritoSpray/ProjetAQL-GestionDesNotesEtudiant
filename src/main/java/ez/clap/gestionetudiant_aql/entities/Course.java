@@ -22,7 +22,7 @@ public class Course implements Serializable {
 
     public String getTitle() {return  this.title;}
 
-    // Setters
+    // TODO: Setters
     public void setCourseNumber(String courseNumber){
         this.courseNumber = courseNumber;
     }
