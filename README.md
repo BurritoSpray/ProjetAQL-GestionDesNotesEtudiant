@@ -25,7 +25,7 @@ Tâches restantes :
   - Nettoyer et optimiser le code
 
 Dispertion des tâches:
-  - Simon   : Doit se trouver une nouvelle tache
+  - Simon   : Ajouter la detection de la touche delete sur les cours
   - William : Implémentation de l'interface pour afficher les notes
   - Nicolas : Doit se trouver une nouvelle tache
   - Jeremy  : Doit se trouver une nouvelle tache

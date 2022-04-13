@@ -5,14 +5,15 @@ import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -145,6 +146,7 @@ public class MainWindow extends Application {
                 setStudentButtons(true);
             }else{
                 tableViewStudent.getSelectionModel().selectFirst();
+
             }
         }));
 
@@ -156,14 +158,30 @@ public class MainWindow extends Application {
                 setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
 
         tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
-                setStudentButtons(tableViewStudent.getItems().size() == 0));
+                setStudentButtons(tableViewStudent.getItems().size()));
+
+        tableViewStudent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tableViewStudent.getSelectionModel().selectedItemProperty().addListener((observablevalue, oldtab, newtab) -> {
+            setStudentButtons(tableViewStudent.getSelectionModel().getSelectedItems().size());
+        });
+
+        // TODO: Glitch quand on fais une selection multiple et click sur le dernier element
+
     }
+
+
+
+
 
     private void setStudentButtons(boolean disabled) {
         mainWindowController.buttonDeleteStudent.disableProperty().set(disabled);
         mainWindowController.buttonEditStudent.disableProperty().set(disabled);
     }
-
+/*
+    private void setMultipleStudentButtons(boolean disabled) {
+        mainWindowController.buttonEditStudent.disableProperty().set(disabled);
+    }
+*/
     private void setCourseButtons(boolean disabled) {
         mainWindowController.buttonDeleteCourse.disableProperty().set(disabled);
         mainWindowController.buttonEditCourse.disableProperty().set(disabled);
