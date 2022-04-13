@@ -143,7 +143,7 @@ public class MainWindow extends Application {
                 }
             });
             if(filteredStudent.size() == 0){
-                setStudentButtons(true);
+                setStudentButtons(0);
             }else{
                 tableViewStudent.getSelectionModel().selectFirst();
 
@@ -154,9 +154,11 @@ public class MainWindow extends Application {
         sortedStudent.comparatorProperty().bind(tableViewStudent.comparatorProperty());
         tableViewStudent.setItems(sortedStudent);
 
-        tableViewStudent.setOnMouseClicked(event ->
-                setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
+        // Event sur un click
+//        tableViewStudent.setOnMouseClicked(event ->
+//                setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
 
+        // Event quand la liste change
         tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
                 setStudentButtons(tableViewStudent.getItems().size()));
 
@@ -173,9 +175,17 @@ public class MainWindow extends Application {
 
 
 
-    private void setStudentButtons(boolean disabled) {
-        mainWindowController.buttonDeleteStudent.disableProperty().set(disabled);
-        mainWindowController.buttonEditStudent.disableProperty().set(disabled);
+    private void setStudentButtons(int shitCount) {
+        if(shitCount > 1){
+            mainWindowController.buttonEditStudent.setDisable(true);
+            mainWindowController.buttonDeleteStudent.setDisable(false);
+        }else if(shitCount == 1){
+            mainWindowController.buttonEditStudent.setDisable(false);
+            mainWindowController.buttonDeleteStudent.setDisable(false);
+        }else{
+            mainWindowController.buttonEditStudent.setDisable(true);
+            mainWindowController.buttonDeleteStudent.setDisable(true);
+        }
     }
 /*
     private void setMultipleStudentButtons(boolean disabled) {
