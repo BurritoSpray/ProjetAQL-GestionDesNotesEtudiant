@@ -12,6 +12,10 @@ public class Student implements Serializable {
     private String secondName;
     private ArrayList<Course> courseList;
 
+    public Student (){
+        this("","","");
+    }
+
     public Student(String firstName, String secondName, String studentID){
         this.studentID = studentID;
         this.firstName = firstName;
