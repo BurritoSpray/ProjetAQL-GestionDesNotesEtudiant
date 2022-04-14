@@ -291,6 +291,18 @@ public class MainWindowController {
         setupStudentTableView();
         setupCourseTableView();
         setupComboBox();
+        setupEvents();
+    }
+
+    private void setupEvents(){
+        tableViewStudent.setOnKeyTyped(keyEvent -> {
+            if(keyEvent.getCharacter().equals("\u007F") && this.tableViewStudent.isFocused() && !this.tableViewStudent.getSelectionModel().isEmpty())
+                this.buttonDeleteStudent.fire();
+        });
+        this.tableViewCourse.setOnKeyTyped(keyEvent -> {
+            if(keyEvent.getCharacter().equals("\u007F") && this.tableViewCourse.isFocused() && !this.tableViewCourse.getSelectionModel().isEmpty())
+                this.buttonDeleteCourse.fire();
+        });
     }
 
     private void setupComboBox() {
