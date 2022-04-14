@@ -4,11 +4,11 @@ import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class ManageStudentController {
     @FXML
@@ -20,9 +20,11 @@ public class ManageStudentController {
     @FXML
     public ListView<CheckBox> listViewCourse;
 
+    private Student selectedStudent;
+
     @FXML
     private void onButtonConfirmClick(){
-
+        addStudentIfValid();
     }
 
     @FXML
@@ -40,6 +42,10 @@ public class ManageStudentController {
                 listViewCourse.getItems().add(new CheckBox(course.getTitle()));
             }
         }
+    }
+
+    private void setupEvents(){
+        buttonConfirm.setOnAction(actionEvent -> onButtonConfirmClick());
     }
 
     private void loadCourseList(){

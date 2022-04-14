@@ -100,15 +100,15 @@ public class MainWindowController {
                 ManageStudentController manageStudentController = loader.getController();
                 manageStudentController.loadData(tableViewStudent.getSelectionModel().getSelectedItem());
                 manageStudentController.buttonConfirm.setText("Modifier");
-                manageStudentController.buttonConfirm.setOnAction(event -> {
-                    if (isStudentFieldsValid(manageStudentController)) {
-                        removeSelectedStudent();
-                        addStudentFromManageStudentController(manageStudentController);
-                        closeWindow(manageStudentController.buttonConfirm);
-                    } else {
-                        showWarningPopup("Erreur", "Information manquante", "OK");
-                    }
-                });
+//                manageStudentController.buttonConfirm.setOnAction(event -> {
+//                    if (isStudentFieldsValid(manageStudentController)) {
+//                        removeSelectedStudent();
+//                        addStudentFromManageStudentController(manageStudentController);
+//                        closeWindow(manageStudentController.buttonConfirm);
+//                    } else {
+//                        showWarningPopup("Erreur", "Information manquante", "OK");
+//                    }
+//                });
             }
             case CREATE_STUDENT -> {
                 stage.setTitle("Creer un étudiant");
