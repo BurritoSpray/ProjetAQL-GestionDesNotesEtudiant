@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageGradeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageGradeController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
         <items>
@@ -57,6 +64,8 @@
                               <Label fx:id="labelCourseTitle" layoutX="77.0" layoutY="22.0" prefHeight="16.0" prefWidth="81.0" text="Label" />
                               <Label fx:id="labelCourseNumber" layoutX="77.0" layoutY="38.0" prefHeight="16.0" prefWidth="81.0" text="Label" />
                               <Label fx:id="labelCourseCode" layoutX="77.0" layoutY="58.0" prefHeight="16.0" prefWidth="81.0" text="Label" />
+                              <Label layoutX="16.0" layoutY="82.0" text="Moyenne:" />
+                              <Label fx:id="labelCourseAverage" layoutX="87.0" layoutY="82.0" text="Label" />
                            </children>
                         </AnchorPane>
                     </items>
