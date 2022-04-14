@@ -19,7 +19,7 @@ public class ManageGradeController
     public TableColumn<Grade, String> tableColumnGrade, tableColumnGradePercent;
     @FXML
     public Label labelStudentNumber, labelStudentFirstName, labelStudentSecondName,
-            labelCourseTitle, labelCourseNumber, labelCourseCode;
+            labelCourseTitle, labelCourseNumber, labelCourseCode, labelCourseAverage;
 
     private Student selectedStudent;
 
@@ -68,9 +68,10 @@ public class ManageGradeController
     }
 
     private void setCourseInfo(Course course){
-        labelCourseCode.setText(course.getCode());
-        labelCourseNumber.setText(course.getCourseNumber());
-        labelCourseTitle.setText(course.getTitle());
+        this.labelCourseCode.setText(course.getCode());
+        this.labelCourseNumber.setText(course.getCourseNumber());
+        this.labelCourseTitle.setText(course.getTitle());
+        this.labelCourseAverage.setText(course.getAverageInPercent() + "%");
     }
 
     private void setupTableView(){
