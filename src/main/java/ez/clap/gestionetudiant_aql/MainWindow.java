@@ -162,11 +162,11 @@ public class MainWindow extends Application {
         tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
                 setStudentButtons(tableViewStudent.getItems().size()));
 
-        tableViewStudent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tableViewStudent.getSelectionModel().selectedItemProperty().addListener((observablevalue, oldtab, newtab) -> {
             setStudentButtons(tableViewStudent.getSelectionModel().getSelectedItems().size());
         });
 
+        tableViewStudent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         // TODO: Glitch quand on fais une selection multiple et click sur le dernier element
 
     }
