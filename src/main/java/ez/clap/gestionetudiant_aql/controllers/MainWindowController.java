@@ -98,7 +98,7 @@ public class MainWindowController {
             case EDIT_STUDENT -> {
                 stage.setTitle("Modifier l'étudiant");
                 ManageStudentController manageStudentController = loader.getController();
-                manageStudentController.loadStudent(tableViewStudent.getSelectionModel().getSelectedItem());
+                manageStudentController.loadData(tableViewStudent.getSelectionModel().getSelectedItem());
                 manageStudentController.buttonConfirm.setText("Modifier");
                 manageStudentController.buttonConfirm.setOnAction(event -> {
                     if (isStudentFieldsValid(manageStudentController)) {
@@ -113,15 +113,9 @@ public class MainWindowController {
             case CREATE_STUDENT -> {
                 stage.setTitle("Creer un étudiant");
                 ManageStudentController manageStudentController = loader.getController();
-
+                manageStudentController.loadData(new Student());
                 manageStudentController.buttonConfirm.setOnAction(event -> {
-                    if (isStudentFieldsValid(manageStudentController)) {
-                        addStudentFromManageStudentController(manageStudentController);
 
-                        closeWindow(manageStudentController.buttonConfirm);
-                    } else {
-                        showWarningPopup("Erreur", "Information manquante!", "OK");
-                    }
                 });
             }
             case DELETE_STUDENT -> {
@@ -219,12 +213,12 @@ public class MainWindowController {
         dialog.show();
     }
 
+    // TODO: A ENLEVER
     private void addStudentFromManageStudentController(ManageStudentController manageStudentController){
         Student student = new Student(manageStudentController.textFieldFirstName.getText(),
                 manageStudentController.textFieldSecondName.getText(),
                 manageStudentController.textFieldNumber.getText());
         Data.getStudentList().add(student);
-//        tableViewStudent.getItems().add(student);
     }
 
     private void removeSelectedStudent(){
@@ -265,6 +259,7 @@ public class MainWindowController {
         return null;
     }
 
+    //TODO: A ENLEVER
     private void closeWindow(Control control){
         ((Stage)control.getScene().getWindow()).close();
     }
