@@ -100,7 +100,7 @@ public class MainWindow extends Application {
                 return false;
             });
             if(filteredCourse.size() == 0){
-                setCourseButtons(true);
+                setCourseButtons(0);
             }else{
                 tableViewCourse.getSelectionModel().selectFirst();
             }
@@ -109,11 +109,20 @@ public class MainWindow extends Application {
         SortedList<Course> sortedCourse = new SortedList<>(filteredCourse);
         sortedCourse.comparatorProperty().bind(mainWindowController.tableViewCourse.comparatorProperty());
         mainWindowController.tableViewCourse.setItems(sortedCourse);
-
+/*
         tableViewCourse.setOnMouseClicked(event ->
                 setCourseButtons(tableViewCourse.selectionModelProperty().get().isEmpty()));
         tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
                 setCourseButtons(tableViewCourse.getItems().size() == 0));
+ */
+        // Event quand la liste change
+        tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
+                setCourseButtons(tableViewCourse.getItems().size()));
+
+        tableViewCourse.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tableViewCourse.getSelectionModel().selectedItemProperty().addListener((observablevalue, oldtab, newtab) -> {
+            setCourseButtons(tableViewCourse.getSelectionModel().getSelectedItems().size());
+        });
     }
 
     private void setupStudentTableView() {
@@ -192,9 +201,17 @@ public class MainWindow extends Application {
         mainWindowController.buttonEditStudent.disableProperty().set(disabled);
     }
 */
-    private void setCourseButtons(boolean disabled) {
-        mainWindowController.buttonDeleteCourse.disableProperty().set(disabled);
-        mainWindowController.buttonEditCourse.disableProperty().set(disabled);
+    private void setCourseButtons(int shitCount) {
+        if(shitCount > 1){
+            mainWindowController.buttonEditCourse.setDisable(true);
+            mainWindowController.buttonDeleteCourse.setDisable(false);
+        }else if(shitCount == 1){
+            mainWindowController.buttonEditCourse.setDisable(false);
+            mainWindowController.buttonDeleteCourse.setDisable(false);
+        }else{
+            mainWindowController.buttonEditCourse.setDisable(true);
+            mainWindowController.buttonDeleteCourse.setDisable(true);
+        }
     }
 
 }
