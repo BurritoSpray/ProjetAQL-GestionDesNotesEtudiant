@@ -332,6 +332,7 @@ public class MainWindowController {
     }
 
     private void setupStudentTableView() {
+        this.tableViewStudent.getSelectionModel().selectionModeProperty().set(SelectionMode.MULTIPLE);
         this.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
         this.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
         this.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
@@ -373,6 +374,7 @@ public class MainWindowController {
     }
 
     private void setupCourseTableView() {
+        this.tableViewCourse.getSelectionModel().selectionModeProperty().set(SelectionMode.MULTIPLE);
         this.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course, String>("Title"));
         this.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseNumber"));
         this.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<Course, String>("Code"));
