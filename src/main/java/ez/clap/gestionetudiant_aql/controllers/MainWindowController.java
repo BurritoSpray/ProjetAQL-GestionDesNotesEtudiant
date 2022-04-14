@@ -4,11 +4,15 @@ import ez.clap.gestionetudiant_aql.MainWindow;
 import ez.clap.gestionetudiant_aql.entities.Course;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
+import javafx.collections.ListChangeListener;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -83,7 +87,11 @@ public class MainWindowController {
         stage.show();
     }
 
-
+    @FXML
+    private void onButtonShowGradeClick(){
+        Stage stage = setupStudentStage(Action.SHOW_GRADES, "manage-grade-window.fxml");
+        stage.show();
+    }
 
     private Stage setupStudentStage(Action action, String resource) {
         Stage stage = new Stage();
@@ -136,6 +144,14 @@ public class MainWindowController {
 //                    tableViewStudent.getItems().remove(selectedStudent);
                     closeWindow(deleteWarningController.buttonConfirm);
                 });
+            }
+            case SHOW_GRADES -> {
+                ManageGradeController manageGradeController = loader.getController();
+                Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
+                stage.setTitle("Notes de " + selectedStudent.getStudentID());
+                manageGradeController.loadData(selectedStudent);
+
+
             }
         }
 
