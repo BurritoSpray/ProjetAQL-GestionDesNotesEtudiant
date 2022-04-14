@@ -36,6 +36,14 @@ public class Course implements Serializable {
         return this.gradeList;
     }
 
+    public double getAverageInPercent(){
+        double average = 0;
+        for(Grade grade : this.gradeList){
+            average += grade.getGradeInPercent();
+        }
+        return this.gradeList.isEmpty() ? 0 : average/this.gradeList.size();
+    }
+
     // Setters
     public void setCourseNumber(String courseNumber){
         this.courseNumber = courseNumber;
