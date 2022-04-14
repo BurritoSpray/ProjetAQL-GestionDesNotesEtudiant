@@ -286,5 +286,119 @@ public class MainWindowController {
         ((Stage)control.getScene().getWindow()).close();
     }
 
+    public void loadWindow(){
+        this.buttonShowGrade.setDisable(false);
+        setupStudentTableView();
+        setupCourseTableView();
+        setupComboBox();
+    }
+
+    private void setupComboBox() {
+        tabPaneMain.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, newIndex) -> {
+            if (newIndex.intValue() == 0) {
+                this.comboBoxSearchOption.getItems().clear();
+                this.comboBoxSearchOption.getItems().addAll("Numéro", "Nom-Prénom");
+            } else {
+                this.comboBoxSearchOption.getItems().clear();
+                this.comboBoxSearchOption.getItems().addAll("Titre", "Code", "Numéro");
+            }
+            this.comboBoxSearchOption.getSelectionModel().selectFirst();
+            this.textFieldSearch.clear();
+        });
+        tabPaneMain.getSelectionModel().selectNext();
+        tabPaneMain.getSelectionModel().selectFirst();
+    }
+
+    private void setupStudentTableView() {
+        this.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
+        this.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
+        this.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
+        this.tableColumnCourse.setCellValueFactory(new PropertyValueFactory<Student, ComboBox<String>>("CourseListAsComboBox"));
+
+        FilteredList<Student> filteredStudent = new FilteredList<>(Data.getStudentList(), p -> true);
+        this.textFieldSearch.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            filteredStudent.setPredicate(student -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (this.comboBoxSearchOption.getSelectionModel().getSelectedIndex() == 0) {
+                    return student.getStudentID().toLowerCase().contains(lowerCaseFilter);
+                } else {
+                    if (student.getFirstName().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else
+                        return student.getSecondName().toLowerCase().contains(lowerCaseFilter);
+                }
+            });
+            if(filteredStudent.size() == 0){
+                setStudentButtons(true);
+            }else{
+                tableViewStudent.getSelectionModel().selectFirst();
+            }
+        }));
+
+        SortedList<Student> sortedStudent = new SortedList<>(filteredStudent);
+        sortedStudent.comparatorProperty().bind(tableViewStudent.comparatorProperty());
+        tableViewStudent.setItems(sortedStudent);
+
+        tableViewStudent.setOnMouseClicked(event ->
+                setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
+
+        tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
+                setStudentButtons(tableViewStudent.getItems().size() == 0));
+    }
+
+    private void setupCourseTableView() {
+        this.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course, String>("Title"));
+        this.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseNumber"));
+        this.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<Course, String>("Code"));
+
+        FilteredList<Course> filteredCourse = new FilteredList<>(Data.getCourseList(), p -> true);
+        this.textFieldSearch.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+            filteredCourse.setPredicate(course -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (this.comboBoxSearchOption.getItems().size() == 3) {
+                    if (this.comboBoxSearchOption.getSelectionModel().getSelectedIndex() == 0) {
+                        return course.getTitle().toLowerCase().contains(lowerCaseFilter);
+                    } else if (this.comboBoxSearchOption.getSelectionModel().getSelectedIndex() == 1) {
+                        return course.getCode().toLowerCase().contains(lowerCaseFilter);
+                    } else {
+                        return course.getCourseNumber().toLowerCase().contains(lowerCaseFilter);
+                    }
+                }
+                return false;
+            });
+            if(filteredCourse.size() == 0){
+                setCourseButtons(true);
+            }else{
+                tableViewCourse.getSelectionModel().selectFirst();
+            }
+        }));
+
+        SortedList<Course> sortedCourse = new SortedList<>(filteredCourse);
+        sortedCourse.comparatorProperty().bind(this.tableViewCourse.comparatorProperty());
+        this.tableViewCourse.setItems(sortedCourse);
+
+        tableViewCourse.setOnMouseClicked(event ->
+                setCourseButtons(tableViewCourse.selectionModelProperty().get().isEmpty()));
+        tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
+                setCourseButtons(tableViewCourse.getItems().size() == 0));
+    }
+
+    private void setStudentButtons(boolean disabled) {
+        this.buttonDeleteStudent.disableProperty().set(disabled);
+        this.buttonEditStudent.disableProperty().set(disabled);
+    }
+
+    private void setCourseButtons(boolean disabled) {
+        this.buttonDeleteCourse.disableProperty().set(disabled);
+        this.buttonEditCourse.disableProperty().set(disabled);
+    }
 
 }
