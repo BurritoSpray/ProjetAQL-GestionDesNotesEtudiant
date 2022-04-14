@@ -191,12 +191,18 @@ public class MainWindowController {
             case DELETE_COURSE:{
                 stage.setTitle("Attention!");
                 DeleteWarningController deleteCourseController = loader.getController();
-                Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
-                deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
+                int selectionCount = this.tableViewCourse.getSelectionModel().getSelectedItems().size();
+                if(selectionCount > 1){
+                    deleteCourseController.labelStudentName.setText(selectionCount + " Cours");
 
+                }else{
+                    Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
+                    deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
+                }
                 deleteCourseController.buttonConfirm.setOnAction(event -> {
-                    Data.getCourseList().remove(selectedCourse);
+                    Data.getCourseList().removeAll(tableViewCourse.getSelectionModel().getSelectedItems());
                     closeWindow(deleteCourseController.buttonConfirm);
+
                 });
                 break;
             }
