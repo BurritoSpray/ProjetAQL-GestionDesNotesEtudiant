@@ -58,7 +58,9 @@ public class ManageCourseController {
                     this.textFieldCode.getText(),
                     this.textFieldNumber.getText());
             Data.getCourseList().add(course);
+            this.mainWindowController.tableViewCourse.getSelectionModel().selectLast();
             this.closeWindow();
+
         }else{
             this.mainWindowController.showWarningPopup("Erreur", "Information manquante", "OK");
         }
