@@ -215,7 +215,6 @@ public class MainWindowController {
     }
 
     public void loadWindow(){
-        this.buttonShowGrade.setDisable(false);
         setupStudentTableView();
         setupCourseTableView();
         setupComboBox();
@@ -334,8 +333,9 @@ public class MainWindowController {
     }
 
     private void setStudentButtons(boolean disabled) {
-        this.buttonDeleteStudent.disableProperty().set(disabled);
-        this.buttonEditStudent.disableProperty().set(disabled);
+        this.buttonDeleteStudent.setDisable(disabled);
+        this.buttonEditStudent.setDisable(disabled);
+        this.buttonShowGrade.setDisable(disabled);
     }
 
     private void setCourseButtons(boolean disabled) {
