@@ -65,6 +65,7 @@ public class ManageStudentController {
                 this.textFieldNumber.getText(), studentCourseList);
         Data.getStudentList().remove(selectedStudent);
         Data.getStudentList().add(student);
+        mainWindowController.tableViewStudent.refresh();
     }
     
     private void addStudentIfValid(){
