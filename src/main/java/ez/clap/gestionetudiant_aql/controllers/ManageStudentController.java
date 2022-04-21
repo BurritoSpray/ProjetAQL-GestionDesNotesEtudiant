@@ -39,12 +39,12 @@ public class ManageStudentController {
 
     private void loadCourseList(){
         for(Course course : Data.getCourseList()){
-            CheckBox newCheckBox = new CheckBox();
-            newCheckBox.setText(course.getTitle());
+            CheckBox courseTitleCheckBox = new CheckBox();
+            courseTitleCheckBox.setText(course.getTitle());
             if(this.selectedStudent.getCourseList().contains(course)){
-                newCheckBox.setSelected(true);
+                courseTitleCheckBox.setSelected(true);
             }
-            listViewCourse.getItems().add(newCheckBox);
+            listViewCourse.getItems().add(courseTitleCheckBox);
         }
     }
 

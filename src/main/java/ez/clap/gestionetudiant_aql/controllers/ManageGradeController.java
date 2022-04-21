@@ -56,9 +56,9 @@ public class ManageGradeController
         try {
             Stage stage = new Stage();
             stage.setResizable(false);
-            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("add-grade-window.fxml"));
-            Parent root = loader.load();
-            AddGradeController addGradeController = loader.getController();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("add-grade-window.fxml"));
+            Parent root = fxmlLoader.load();
+            AddGradeController addGradeController = fxmlLoader.getController();
 
             switch (action){
                 case ADD_GRADE -> {
@@ -70,9 +70,9 @@ public class ManageGradeController
                     addGradeController.loadData(this, false);
                 }
                 case DELETE_GRADE -> {
-                    loader = new FXMLLoader(MainWindow.class.getResource("delete-warning-window.fxml"));
-                    root = loader.load();
-                    DeleteWarningController deleteWarningController = loader.getController();
+                    fxmlLoader = new FXMLLoader(MainWindow.class.getResource("delete-warning-window.fxml"));
+                    root = fxmlLoader.load();
+                    DeleteWarningController deleteWarningController = fxmlLoader.getController();
                     deleteWarningController.labelStudentName.setText("la note");
                     deleteWarningController.buttonConfirm.setOnAction(actionEvent -> {
                         deleteGrade();
@@ -82,7 +82,7 @@ public class ManageGradeController
             }
             stage.setScene(new Scene(root));
             return stage;
-        }catch(IOException e){
+        }catch(IOException exception){
             System.out.println("FXML file not found!");
             return new Stage();
         }
@@ -102,7 +102,6 @@ public class ManageGradeController
 
         this.tableViewGrade.getSelectionModel().getSelectedCells()
                 .addListener((ListChangeListener<? super TablePosition>) change -> setButtons(change.getList().isEmpty()));
-
     }
 
     private void setStudentInfo(Student student){
