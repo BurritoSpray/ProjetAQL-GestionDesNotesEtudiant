@@ -107,25 +107,13 @@ public class MainWindowController {
             case EDIT_STUDENT -> {
                 stage.setTitle("Modifier l'étudiant");
                 ManageStudentController manageStudentController = loader.getController();
-                manageStudentController.loadData(tableViewStudent.getSelectionModel().getSelectedItem());
+                manageStudentController.loadData(this, false);
                 manageStudentController.buttonConfirm.setText("Modifier");
-//                manageStudentController.buttonConfirm.setOnAction(event -> {
-//                    if (isStudentFieldsValid(manageStudentController)) {
-//                        removeSelectedStudent();
-//                        addStudentFromManageStudentController(manageStudentController);
-//                        closeWindow(manageStudentController.buttonConfirm);
-//                    } else {
-//                        showWarningPopup("Erreur", "Information manquante", "OK");
-//                    }
-//                });
             }
             case CREATE_STUDENT -> {
                 stage.setTitle("Creer un étudiant");
                 ManageStudentController manageStudentController = loader.getController();
-                manageStudentController.loadData(new Student());
-                manageStudentController.buttonConfirm.setOnAction(event -> {
-
-                });
+                manageStudentController.loadData(this, true);
             }
             case DELETE_STUDENT -> {
                 stage.setTitle("Attention!");
@@ -146,8 +134,8 @@ public class MainWindowController {
             case SHOW_GRADES -> {
                 ManageGradeController manageGradeController = loader.getController();
                 Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
-                stage.setTitle("Notes de " + selectedStudent.getStudentID());
-                manageGradeController.loadData(selectedStudent);
+                stage.setTitle("Notes de " + selectedStudent.getStudentID() + "(" + selectedStudent.getFirstName() + " " + selectedStudent.getSecondName()+ ")");
+                manageGradeController.loadData(this);
 
 
             }
@@ -230,7 +218,7 @@ public class MainWindowController {
                 !manageStudentController.textFieldNumber.getText().isEmpty();
     }
 
-    private void showWarningPopup(String title, String warningMessage, String buttonText){
+    public void showWarningPopup(String title, String warningMessage, String buttonText){
         Dialog dialog = new Dialog();
         dialog.setTitle(title);
         dialog.setContentText(warningMessage);
@@ -238,20 +226,6 @@ public class MainWindowController {
         ButtonType closeButton = new ButtonType(buttonText, ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
         dialog.show();
-    }
-
-    // TODO: A ENLEVER
-    private void addStudentFromManageStudentController(ManageStudentController manageStudentController){
-        Student student = new Student(manageStudentController.textFieldFirstName.getText(),
-                manageStudentController.textFieldSecondName.getText(),
-                manageStudentController.textFieldNumber.getText());
-        Data.getStudentList().add(student);
-    }
-
-    private void removeSelectedStudent(){
-        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-        Data.getStudentList().remove(selectedStudent);
-//        tableViewStudent.getItems().remove(selectedStudent);
     }
 
     // TODO: enlever la répétition
@@ -266,13 +240,11 @@ public class MainWindowController {
                 manageCourseController.textFieldCode.getText(),
                 manageCourseController.textFieldNumber.getText());
         Data.getCourseList().add(course);
-        //tableViewCourse.getItems().addAll(Data.getCourseList());
     }
 
     private void removeSelectedCourse(){
         Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
         Data.getCourseList().remove(selectedCourse);
-//        tableViewCourse.getItems().remove(selectedCourse);
     }
 
     private FXMLLoader getLoaderFromResources(String resource){
@@ -286,7 +258,6 @@ public class MainWindowController {
         return null;
     }
 
-    //TODO: A ENLEVER
     private void closeWindow(Control control){
         ((Stage)control.getScene().getWindow()).close();
     }
