@@ -10,23 +10,10 @@ import javafx.stage.Stage;
 public class ManageCourseController {
     @FXML
     public Button buttonConfirm, buttonCancel;
-
     @FXML
     public TextField textFieldNumber, textFieldCode, textFieldTitle;
-
     private Course selectedCourse;
     private MainWindowController mainWindowController;
-
-    @FXML
-    private void onButtonConfirmClick(){
-
-    }
-
-    @FXML
-    private void onButtonCancelClick(){
-        Stage stage = (Stage) buttonCancel.getScene().getWindow();
-        stage.close();
-    }
 
     public void loadCourse(MainWindowController mainWindowController, boolean newCourse){
         this.mainWindowController = mainWindowController;

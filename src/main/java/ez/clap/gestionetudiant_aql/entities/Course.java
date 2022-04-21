@@ -44,27 +44,6 @@ public class Course implements Serializable {
         return this.gradeList.isEmpty() ? 0 : average/this.gradeList.size();
     }
 
-    // Setters
-    public void setCourseNumber(String courseNumber){
-        this.courseNumber = courseNumber;
-    }
-
-    public void setCode(String code){
-        this.code = code;
-    }
-
-    public void setTitle(String title){
-        this.title = title;
-    }
-
-    public void setGradeList(ArrayList<Grade> gradeList) {
-        this.gradeList = gradeList;
-    }
-
-    public void addGrade(Grade grade){
-        this.gradeList.add(grade);
-    }
-
     @Override
     public String toString() {
         return "Course{" +

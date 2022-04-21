@@ -95,27 +95,27 @@ public class MainWindowController {
 
     private Stage setupStudentStage(Action action, String resource) {
         Stage stage = new Stage();
-        FXMLLoader loader = getLoaderFromResources(resource);
-        assert loader != null;
-        Parent root = loader.getRoot();
+        FXMLLoader fxmlLoader = getLoaderFromResources(resource);
+        assert fxmlLoader != null;
+        Parent root = fxmlLoader.getRoot();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
         switch (action) {
             case EDIT_STUDENT -> {
                 stage.setTitle("Modifier l'étudiant");
-                ManageStudentController manageStudentController = loader.getController();
+                ManageStudentController manageStudentController = fxmlLoader.getController();
                 manageStudentController.loadData(this, false);
                 manageStudentController.buttonConfirm.setText("Modifier");
             }
             case CREATE_STUDENT -> {
                 stage.setTitle("Creer un étudiant");
-                ManageStudentController manageStudentController = loader.getController();
+                ManageStudentController manageStudentController = fxmlLoader.getController();
                 manageStudentController.loadData(this, true);
             }
             case DELETE_STUDENT -> {
                 stage.setTitle("Attention!");
-                DeleteWarningController deleteWarningController = loader.getController();
+                DeleteWarningController deleteWarningController = fxmlLoader.getController();
                 int selectionCount = this.tableViewStudent.getSelectionModel().getSelectedItems().size();
                 if(selectionCount > 1){
                     deleteWarningController.labelStudentName.setText(selectionCount + " Étudiants");
@@ -129,7 +129,7 @@ public class MainWindowController {
                 });
             }
             case SHOW_GRADES -> {
-                ManageGradeController manageGradeController = loader.getController();
+                ManageGradeController manageGradeController = fxmlLoader.getController();
                 Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
                 stage.setTitle("Notes de " + selectedStudent.getStudentID() + "(" + selectedStudent.getFirstName() + " " + selectedStudent.getSecondName()+ ")");
                 manageGradeController.loadData(this);
@@ -143,30 +143,30 @@ public class MainWindowController {
 
     private Stage setupCourseStage (Action action, String resource) {
         Stage stage = new Stage();
-        FXMLLoader loader = getLoaderFromResources(resource);
-        assert loader != null;
-        Parent root = loader.getRoot();
+        FXMLLoader fxmlLoader = getLoaderFromResources(resource);
+        assert fxmlLoader != null;
+        Parent root = fxmlLoader.getRoot();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
         switch (action){
             case CREATE_COURSE:{
                 stage.setTitle("Creer un cours");
-                ManageCourseController manageCourseController = loader.getController();
+                ManageCourseController manageCourseController = fxmlLoader.getController();
                 manageCourseController.loadCourse(this, true);
                 manageCourseController.buttonConfirm.setText("Confirmer");
                 break;
             }
             case EDIT_COURSE:{
                 stage.setTitle("Modifier le cours");
-                ManageCourseController manageCourseController = loader.getController();
+                ManageCourseController manageCourseController = fxmlLoader.getController();
                 manageCourseController.loadCourse(this, false);
                 manageCourseController.buttonConfirm.setText("Modifier");
                 break;
             }
             case DELETE_COURSE:{
                 stage.setTitle("Attention!");
-                DeleteWarningController deleteCourseController = loader.getController();
+                DeleteWarningController deleteCourseController = fxmlLoader.getController();
                 int selectionCount = this.tableViewCourse.getSelectionModel().getSelectedItems().size();
                 if(selectionCount > 1){
                     deleteCourseController.labelStudentName.setText(selectionCount + " Cours");
@@ -201,9 +201,9 @@ public class MainWindowController {
 
     private FXMLLoader getLoaderFromResources(String resource){
         try{
-            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource(resource));
-            loader.load();
-            return loader;
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(resource));
+            fxmlLoader.load();
+            return fxmlLoader;
         }catch(IOException e){
             System.out.println("Verifier si " + resource + " existe dans le repertoire resources du projet!!!");
         }
