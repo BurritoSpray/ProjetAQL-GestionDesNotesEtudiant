@@ -62,7 +62,6 @@ public class AddGradeController {
                 newGrade = new Grade(Double.parseDouble(this.textFieldPoints.getText()));
             }
 
-            // TODO: Trouver un moyen de ajouter la note dans l'etudiant directement
             int index = Data.selectedStudent.getCourseList().indexOf(this.manageGradeController.selectedCourse);
             Student studentToUpdate = Data.selectedStudent;
             studentToUpdate.getCourseList().get(index).getGradeList().remove(this.selectedGrade);

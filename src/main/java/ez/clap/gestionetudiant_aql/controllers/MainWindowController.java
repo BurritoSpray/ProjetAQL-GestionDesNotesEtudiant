@@ -154,6 +154,7 @@ public class MainWindowController {
                 stage.setTitle("Creer un cours");
                 ManageCourseController manageCourseController = loader.getController();
                 manageCourseController.loadCourse(this, true);
+                manageCourseController.buttonConfirm.setText("Confirmer");
                 break;
             }
             case EDIT_COURSE:{
@@ -163,7 +164,6 @@ public class MainWindowController {
                 manageCourseController.buttonConfirm.setText("Modifier");
                 break;
             }
-            // TODO: vérifier le nom du controller et des attributs
             case DELETE_COURSE:{
                 stage.setTitle("Attention!");
                 DeleteWarningController deleteCourseController = loader.getController();
@@ -229,6 +229,13 @@ public class MainWindowController {
         this.tableViewCourse.setOnKeyTyped(keyEvent -> {
             if(keyEvent.getCharacter().equals("\u007F") && this.tableViewCourse.isFocused() && !this.tableViewCourse.getSelectionModel().isEmpty())
                 this.buttonDeleteCourse.fire();
+        });
+        this.tableViewCourse.getSelectionModel().getSelectedCells().addListener((
+                ListChangeListener<? super TablePosition>) change -> setCourseButtons(change.getList().isEmpty()));
+        this.comboBoxSearchOption.setOnAction(event -> {
+            String searchInput = this.textFieldSearch.getText();
+            this.textFieldSearch.textProperty().set(searchInput + " ");
+            this.textFieldSearch.textProperty().set(searchInput);
         });
     }
 
