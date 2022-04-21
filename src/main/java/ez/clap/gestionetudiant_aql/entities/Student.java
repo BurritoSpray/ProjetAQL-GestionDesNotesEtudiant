@@ -58,14 +58,6 @@ public class Student implements Serializable {
         return combobox;
     }
 
-//    // TODO: Verifier la fonction
-//    public ArrayList<ComboBox<Course>> getCourseListAsComboBox(){
-//        ArrayList<ComboBox<Course>> comboBoxArrayList = new ArrayList<>();
-//        comboBoxArrayList.add(new ComboBox<>((ObservableList<Course>) courseList));
-//        return comboBoxArrayList;
-//    }
-
-
     // Setters
     public void setStudentID(String studentID) {
         this.studentID = studentID;
