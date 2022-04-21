@@ -5,7 +5,6 @@ import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -21,31 +20,18 @@ public class ManageStudentController {
     public ListView<CheckBox> listViewCourse;
 
     private Student selectedStudent;
+    private MainWindowController mainWindowController;
 
-    @FXML
-    private void onButtonConfirmClick(){
-        addStudentIfValid();
-    }
-
-    @FXML
-    private void onButtonCancelClick(){
-        Stage stage = (Stage) buttonCancel.getScene().getWindow();
-        stage.close();
-    }
 
     private void loadStudent(){
         textFieldFirstName.setText(this.selectedStudent.getFirstName());
         textFieldSecondName.setText(this.selectedStudent.getSecondName());
         textFieldNumber.setText(this.selectedStudent.getStudentID());
-        if(!this.selectedStudent.getCourseList().isEmpty()){
-            for(Course course : this.selectedStudent.getCourseList()){
-                listViewCourse.getItems().add(new CheckBox(course.getTitle()));
-            }
-        }
     }
 
     private void setupEvents(){
-        buttonConfirm.setOnAction(actionEvent -> onButtonConfirmClick());
+        this.buttonConfirm.setOnAction(actionEvent -> addStudentIfValid());
+        this.buttonCancel.setOnAction(actionEvent -> closeWindow());
     }
 
     private void loadCourseList(){
@@ -59,8 +45,9 @@ public class ManageStudentController {
         }
     }
 
-    public void loadData(Student student){
-        this.selectedStudent = student;
+    public void loadData(MainWindowController mainWindowController, boolean newStudent){
+        this.mainWindowController = mainWindowController;
+        this.selectedStudent = newStudent ? new Student() : mainWindowController.tableViewStudent.getSelectionModel().getSelectedItem();
         loadStudent();
         loadCourseList();
         setupEvents();
@@ -85,7 +72,7 @@ public class ManageStudentController {
             addStudent();
             closeWindow();
         } else {
-            showWarningPopup("Erreur", "Information manquante!", "OK");
+            this.mainWindowController.showWarningPopup("Erreur", "Information manquante!", "OK");
         }
     }
     
@@ -99,14 +86,5 @@ public class ManageStudentController {
         ((Stage)this.buttonConfirm.getScene().getWindow()).close();
     }
 
-    private void showWarningPopup(String title, String warningMessage, String buttonText){
-        Dialog dialog = new Dialog();
-        dialog.setTitle(title);
-        dialog.setContentText(warningMessage);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        ButtonType closeButton = new ButtonType(buttonText, ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().add(closeButton);
-        dialog.show();
-    }
 
 }
