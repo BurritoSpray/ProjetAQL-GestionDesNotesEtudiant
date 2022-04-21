@@ -18,15 +18,15 @@ public class Grade implements Serializable {
     }
 
     public Character getGrade(){
-        if(this.getGradeInPercent() > 90)
+        if(this.getGradeInPercent() >= 90)
             return 'A';
-        else if (this.getGradeInPercent() > 80) {
+        else if (this.getGradeInPercent() >= 80) {
             return 'B';
-        } else if (this.getGradeInPercent() > 70) {
+        } else if (this.getGradeInPercent() >= 70) {
             return 'C';
-        } else if (this.getGradeInPercent() > 60) {
+        } else if (this.getGradeInPercent() >= 60) {
             return 'D';
-        }else if (this.getGradeInPercent() > 50){
+        }else if (this.getGradeInPercent() >= 50){
             return 'E';
         }else{
             return 'F';
@@ -38,15 +38,23 @@ public class Grade implements Serializable {
     }
 
     public double getGradeInPercent(){
-        return this.points/this.maxPoints;
+        return this.points/this.maxPoints*100;
+    }
+
+    public double getMaxPoints() {
+        return maxPoints;
+    }
+
+    public double getPoints() {
+        return points;
     }
 
     public void setGrade(double points, double maxPoints) {
         if(points > maxPoints)
             this.points = this.maxPoints = maxPoints;
         else{
-            this.points = points;
-            this.maxPoints = maxPoints;
+            this.points = points < 0 ? 0 : points;
+            this.maxPoints = maxPoints < 0 ? 0 : maxPoints;
         }
     }
 
