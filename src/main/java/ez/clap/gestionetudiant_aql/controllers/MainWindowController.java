@@ -101,8 +101,6 @@ public class MainWindowController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
 
-        // TODO: Ajouter dans le CourseListView la liste de tous les cours disponible et implementer dans l'objet etudiant seulement eu qui son cocher
-
         switch (action) {
             case EDIT_STUDENT -> {
                 stage.setTitle("Modifier l'étudiant");
@@ -121,7 +119,6 @@ public class MainWindowController {
                 int selectionCount = this.tableViewStudent.getSelectionModel().getSelectedItems().size();
                 if(selectionCount > 1){
                     deleteWarningController.labelStudentName.setText(selectionCount + " Étudiants");
-
                 }else{
                     Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
                     deleteWarningController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
@@ -136,7 +133,6 @@ public class MainWindowController {
                 Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
                 stage.setTitle("Notes de " + selectedStudent.getStudentID() + "(" + selectedStudent.getFirstName() + " " + selectedStudent.getSecondName()+ ")");
                 manageGradeController.loadData(this);
-
 
             }
         }
@@ -157,33 +153,14 @@ public class MainWindowController {
             case CREATE_COURSE:{
                 stage.setTitle("Creer un cours");
                 ManageCourseController manageCourseController = loader.getController();
-
-                manageCourseController.buttonConfirm.setOnAction(event ->{
-                    if(isCourseFieldsValid(manageCourseController)){
-                        addCourseFromManageCourseController(manageCourseController);
-                        closeWindow(manageCourseController.buttonConfirm);
-                    }
-                    else{
-                        showWarningPopup("Erreur", "Information manquante","OK");
-                    }
-                });
+                manageCourseController.loadCourse(this, true);
                 break;
             }
             case EDIT_COURSE:{
                 stage.setTitle("Modifier le cours");
                 ManageCourseController manageCourseController = loader.getController();
-                manageCourseController.loadCourse(tableViewCourse.getSelectionModel().getSelectedItem());
+                manageCourseController.loadCourse(this, false);
                 manageCourseController.buttonConfirm.setText("Modifier");
-                manageCourseController.buttonConfirm.setOnAction(event -> {
-                    if(isCourseFieldsValid(manageCourseController)){
-                        removeSelectedCourse();
-                        addCourseFromManageCourseController(manageCourseController);
-                        closeWindow(manageCourseController.buttonConfirm);
-                    }
-                    else{
-                        showWarningPopup("Erreur", "Information manquante", "OK");
-                    }
-                });
                 break;
             }
             // TODO: vérifier le nom du controller et des attributs
@@ -212,12 +189,6 @@ public class MainWindowController {
     }
 
 
-    private boolean isStudentFieldsValid(ManageStudentController manageStudentController){
-        return !manageStudentController.textFieldFirstName.getText().isEmpty() &&
-                !manageStudentController.textFieldSecondName.getText().isEmpty() &&
-                !manageStudentController.textFieldNumber.getText().isEmpty();
-    }
-
     public void showWarningPopup(String title, String warningMessage, String buttonText){
         Dialog dialog = new Dialog();
         dialog.setTitle(title);
@@ -226,25 +197,6 @@ public class MainWindowController {
         ButtonType closeButton = new ButtonType(buttonText, ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
         dialog.show();
-    }
-
-    // TODO: enlever la répétition
-    private  boolean isCourseFieldsValid(ManageCourseController manageCourseController){
-        return !manageCourseController.textFieldNumber.getText().isEmpty() &&
-                !manageCourseController.textFieldCode.getText().isEmpty() &&
-                !manageCourseController.textFieldTitle.getText().isEmpty();
-    }
-
-    private  void addCourseFromManageCourseController(ManageCourseController manageCourseController){
-        Course course = new Course(manageCourseController.textFieldTitle.getText(),
-                manageCourseController.textFieldCode.getText(),
-                manageCourseController.textFieldNumber.getText());
-        Data.getCourseList().add(course);
-    }
-
-    private void removeSelectedCourse(){
-        Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
-        Data.getCourseList().remove(selectedCourse);
     }
 
     private FXMLLoader getLoaderFromResources(String resource){
