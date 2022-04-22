@@ -1,17 +1,27 @@
 package ez.clap.gestionetudiant_aql.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Course implements Serializable {
     private String courseNumber;
     private String code;
     private String title;
+    private ArrayList<Grade> gradeList = new ArrayList<>();
 
+    public Course(){
+        this("", "", "");
+    }
     public Course(String title, String code, String courseNumber){
         this.title = title;
         this.code = code;
         this.courseNumber = courseNumber;
+    }
+
+    public Course(String title, String code, String courseNumber, ArrayList<Grade> grades){
+        this(title, code, courseNumber);
+        this.gradeList = grades;
     }
 
 
@@ -22,17 +32,16 @@ public class Course implements Serializable {
 
     public String getTitle() {return  this.title;}
 
-    // Setters
-    public void setCourseNumber(String courseNumber){
-        this.courseNumber = courseNumber;
+    public ArrayList<Grade> getGradeList() {
+        return this.gradeList;
     }
 
-    public void setCode(String code){
-        this.code = code;
-    }
-
-    public void setTitle(String title){
-        this.title = title;
+    public double getAverageInPercent(){
+        double average = 0;
+        for(Grade grade : this.gradeList){
+            average += grade.getGradeInPercent();
+        }
+        return this.gradeList.isEmpty() ? 0 : average/this.gradeList.size();
     }
 
     @Override

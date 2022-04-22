@@ -12,6 +12,10 @@ public class Student implements Serializable {
     private String secondName;
     private ArrayList<Course> courseList;
 
+    public Student (){
+        this("","","");
+    }
+
     public Student(String firstName, String secondName, String studentID){
         this.studentID = studentID;
         this.firstName = firstName;
@@ -40,39 +44,18 @@ public class Student implements Serializable {
     public ArrayList<Course> getCourseList(){return this.courseList;}
 
     public ComboBox<String> getCourseListAsComboBox(){
-        ComboBox<String> combobox = new ComboBox<>();
+        ComboBox<String> courseListComboBox = new ComboBox<>();
         for(Course course : courseList){
-            combobox.getItems().add(course.getTitle());
+            courseListComboBox.getItems().add(course.getTitle());
         }
         if(this.courseList.size() == 0) {
-            combobox.getItems().add("Aucun Cours");
+            courseListComboBox.getItems().add("Aucun Cours");
         }
 
-        combobox.getSelectionModel().selectFirst();
-        combobox.setPrefWidth(140);
+        courseListComboBox.getSelectionModel().selectFirst();
+        courseListComboBox.setPrefWidth(140);
 
-        return combobox;
-    }
-
-//    // TODO: Verifier la fonction
-//    public ArrayList<ComboBox<Course>> getCourseListAsComboBox(){
-//        ArrayList<ComboBox<Course>> comboBoxArrayList = new ArrayList<>();
-//        comboBoxArrayList.add(new ComboBox<>((ObservableList<Course>) courseList));
-//        return comboBoxArrayList;
-//    }
-
-
-    // Setters
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+        return courseListComboBox;
     }
 
     @Override
@@ -85,10 +68,10 @@ public class Student implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Student student = (Student) object;
         return getStudentID().equals(student.getStudentID()) &&
                 getFirstName().equals(student.getFirstName()) &&
                 getSecondName().equals(student.getSecondName());

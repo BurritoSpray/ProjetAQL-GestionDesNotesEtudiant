@@ -12,7 +12,7 @@ public class DeleteWarningController {
     public Label labelStudentName;
 
     @FXML
-    private void onButtonCancelClick(){
-        ((Stage)buttonCancel.getScene().getWindow()).close();
+    private void onButtonCancelClick() {
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 }

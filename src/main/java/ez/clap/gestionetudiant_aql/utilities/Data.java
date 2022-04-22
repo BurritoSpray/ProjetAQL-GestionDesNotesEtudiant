@@ -29,6 +29,7 @@ public class Data {
         return Data.courseList;
     }
 
+    public static Student selectedStudent;
 
     public static void loadDataFromFiles() {
         // Faire une fonction pour ne pas dupliquer le code.
