@@ -2,15 +2,17 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0" prefWidth="198.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageCourseController">
-   <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Numéro" />
-      <TextField fx:id="textFieldNumber" layoutX="14.0" layoutY="30.0" />
-      <Label layoutX="14.0" layoutY="67.0" text="Code" />
-      <TextField fx:id="textFieldCode" layoutX="14.0" layoutY="83.0" />
-      <Label layoutX="14.0" layoutY="122.0" text="Titre" />
-      <TextField fx:id="textFieldTitle" layoutX="14.0" layoutY="138.0" />
-      <Button fx:id="buttonConfirm" defaultButton="true" layoutX="108.0" layoutY="199.0" mnemonicParsing="false" text="Ajouter" />
-      <Button fx:id="buttonCancel" cancelButton="true" layoutX="13.0" layoutY="199.0" mnemonicParsing="false" text="Annuler" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0"
+            prefWidth="198.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageCourseController">
+   <Label layoutX="14.0" layoutY="14.0" text="Numéro"/>
+   <TextField fx:id="textFieldNumber" layoutX="14.0" layoutY="30.0"/>
+   <Label layoutX="14.0" layoutY="67.0" text="Code"/>
+   <TextField fx:id="textFieldCode" layoutX="14.0" layoutY="83.0"/>
+   <Label layoutX="14.0" layoutY="122.0" text="Titre"/>
+   <TextField fx:id="textFieldTitle" layoutX="14.0" layoutY="138.0"/>
+   <Button fx:id="buttonConfirm" defaultButton="true" layoutX="108.0" layoutY="199.0" mnemonicParsing="false"
+           text="Ajouter"/>
+   <Button fx:id="buttonCancel" cancelButton="true" layoutX="13.0" layoutY="199.0" mnemonicParsing="false"
+           text="Annuler"/>
 </AnchorPane>

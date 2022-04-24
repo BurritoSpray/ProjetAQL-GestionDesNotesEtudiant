@@ -33,6 +33,7 @@ public class Grade implements Serializable {
         }
     }
 
+    // TODO: Utiliser la fonction dans le manage grade
     public String getGradeInPercentString(){
         return (this.points / this.maxPoints) + "%";
     }

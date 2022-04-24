@@ -39,10 +39,8 @@ public class ManageGradeController
 
     public Student selectedStudent;
     public Course selectedCourse;
-    private MainWindowController mainWindowController;
 
     public void loadData(MainWindowController mainWindowController){
-        this.mainWindowController = mainWindowController;
         this.selectedStudent = mainWindowController.tableViewStudent.getSelectionModel().getSelectedItem();
         Data.selectedStudent = this.selectedStudent;
         setupEvents();
@@ -120,8 +118,8 @@ public class ManageGradeController
     }
 
     private void setupTableView(){
-        this.tableColumnGrade.setCellValueFactory(new PropertyValueFactory<Grade, String>("Grade"));
-        this.tableColumnGradePercent.setCellValueFactory(new PropertyValueFactory<Grade, String>("GradeInPercent"));
+        this.tableColumnGrade.setCellValueFactory(new PropertyValueFactory<>("Grade"));
+        this.tableColumnGradePercent.setCellValueFactory(new PropertyValueFactory<>("GradeInPercent"));
         ObservableList<Grade> gradeObservableList = FXCollections.observableArrayList();
         if(!this.selectedStudent.getCourseList().isEmpty())
             gradeObservableList.addAll(this.selectedStudent.getCourseList().get(0).getGradeList());

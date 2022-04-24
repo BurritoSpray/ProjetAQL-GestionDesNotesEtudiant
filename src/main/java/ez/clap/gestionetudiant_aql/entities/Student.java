@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Student implements Serializable {
-    private String studentID;
-    private String firstName;
-    private String secondName;
+    private final String studentID;
+    private final String firstName;
+    private final String secondName;
     private ArrayList<Course> courseList;
 
     public Student (){

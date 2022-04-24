@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Course implements Serializable {
-    private String courseNumber;
-    private String code;
-    private String title;
+    private final String courseNumber;
+    private final String code;
+    private final String title;
     private ArrayList<Grade> gradeList = new ArrayList<>();
 
     public Course(){

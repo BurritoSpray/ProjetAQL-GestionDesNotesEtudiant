@@ -44,8 +44,9 @@ public class ManageCourseController {
             Course course = new Course(this.textFieldTitle.getText(),
                     this.textFieldCode.getText(),
                     this.textFieldNumber.getText());
+            Data.getCourseList().remove(this.selectedCourse);
             Data.getCourseList().add(course);
-            this.mainWindowController.tableViewCourse.getSelectionModel().selectLast();
+//            this.mainWindowController.tableViewCourse.getSelectionModel().selectLast();
             this.closeWindow();
 
         }else{
