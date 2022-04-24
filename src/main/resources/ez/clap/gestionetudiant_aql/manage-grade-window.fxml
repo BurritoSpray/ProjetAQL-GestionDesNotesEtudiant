@@ -3,81 +3,80 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageGradeController">
-   <children>
-      <SplitPane dividerPositions="0.4444444444444444" layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="389.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <SplitPane dividerPositions="0.13819095477386933, 0.4396984924623116, 0.6633165829145728" layoutY="-1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="175.0">
-                    <items>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label prefHeight="16.0" prefWidth="149.0" text="Cours" />
-                              <ComboBox fx:id="comboBoxCourse" prefWidth="150.0" promptText="Aucun cours" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button fx:id="buttonAddGrade" alignment="CENTER" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" text="Ajouter une note">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="buttonEditGrade" alignment="CENTER" disable="true" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" text="Modifier la note">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="buttonDeleteGrade" alignment="CENTER" disable="true" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" text="Supprimer la note">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                        <AnchorPane prefHeight="68.0" prefWidth="173.0">
-                           <children>
-                              <Label layoutX="48.0" layoutY="6.0" text="Étudiant" />
-                              <Label layoutX="14.0" layoutY="29.0" text="Numéro: " />
-                              <Label layoutX="14.0" layoutY="45.0" text="Nom:" />
-                              <Label layoutX="14.0" layoutY="61.0" text="Prénom:" />
-                              <Label fx:id="labelStudentNumber" layoutX="76.0" layoutY="29.0" prefHeight="16.0" prefWidth="87.0" text="Label" />
-                              <Label fx:id="labelStudentSecondName" layoutX="76.0" layoutY="45.0" prefHeight="16.0" prefWidth="87.0" text="Label" />
-                              <Label fx:id="labelStudentFirstName" layoutX="76.0" layoutY="61.0" prefHeight="16.0" prefWidth="87.0" text="Label" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="51.0" layoutY="6.0" text="Cours" />
-                              <Label layoutX="14.0" layoutY="22.0" text="Titre: " />
-                              <Label layoutX="16.0" layoutY="38.0" text="Numéro:" />
-                              <Label layoutX="16.0" layoutY="58.0" text="Code:" />
-                              <Label fx:id="labelCourseTitle" layoutX="77.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label" />
-                              <Label fx:id="labelCourseNumber" layoutX="77.0" layoutY="38.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label" />
-                              <Label fx:id="labelCourseCode" layoutX="77.0" layoutY="58.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label" />
-                              <Label layoutX="16.0" layoutY="82.0" text="Moyenne:" />
-                              <Label fx:id="labelCourseAverage" layoutX="87.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label" />
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="252.0">
-               <children>
-                  <TableView fx:id="tableViewGrade" layoutX="-3.0" prefHeight="400.0" prefWidth="216.0">
-                    <columns>
-                      <TableColumn fx:id="tableColumnGradePercent" prefWidth="100.0" resizable="false" text="Notes(%)" />
-                      <TableColumn fx:id="tableColumnGrade" prefWidth="115.0" resizable="false" text="Notes" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="388.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ez.clap.gestionetudiant_aql.controllers.ManageGradeController">
+    <SplitPane dividerPositions="0.4444444444444444" layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="389.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <SplitPane dividerPositions="0.13819095477386933, 0.4396984924623116, 0.6633165829145728"
+                       layoutY="-1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="175.0">
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <Label prefHeight="16.0" prefWidth="149.0" text="Cours"/>
+                    <ComboBox fx:id="comboBoxCourse" prefWidth="150.0" promptText="Aucun cours"/>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <Button fx:id="buttonAddGrade" alignment="CENTER" mnemonicParsing="false"
+                            prefHeight="24.0" prefWidth="150.0" text="Ajouter une note">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <Button fx:id="buttonEditGrade" alignment="CENTER" disable="true" layoutX="21.0"
+                            layoutY="20.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0"
+                            text="Modifier la note">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                    </Button>
+                    <Button fx:id="buttonDeleteGrade" alignment="CENTER" disable="true" layoutX="21.0"
+                            layoutY="20.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0"
+                            text="Supprimer la note">
+                        <VBox.margin>
+                            <Insets top="10.0"/>
+                        </VBox.margin>
+                    </Button>
+                </VBox>
+                <AnchorPane prefHeight="68.0" prefWidth="173.0">
+                    <Label layoutX="48.0" layoutY="6.0" text="Étudiant"/>
+                    <Label layoutX="14.0" layoutY="29.0" text="Numéro: "/>
+                    <Label layoutX="14.0" layoutY="45.0" text="Nom:"/>
+                    <Label layoutX="14.0" layoutY="61.0" text="Prénom:"/>
+                    <Label fx:id="labelStudentNumber" layoutX="76.0" layoutY="29.0" prefHeight="16.0"
+                           prefWidth="87.0" text="Label"/>
+                    <Label fx:id="labelStudentSecondName" layoutX="76.0" layoutY="45.0"
+                           prefHeight="16.0" prefWidth="87.0" text="Label"/>
+                    <Label fx:id="labelStudentFirstName" layoutX="76.0" layoutY="61.0" prefHeight="16.0"
+                           prefWidth="87.0" text="Label"/>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <Label layoutX="51.0" layoutY="6.0" text="Cours"/>
+                    <Label layoutX="14.0" layoutY="22.0" text="Titre: "/>
+                    <Label layoutX="16.0" layoutY="38.0" text="Numéro:"/>
+                    <Label layoutX="16.0" layoutY="58.0" text="Code:"/>
+                    <Label fx:id="labelCourseTitle" layoutX="77.0" layoutY="22.0" maxHeight="-Infinity"
+                           maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label"/>
+                    <Label fx:id="labelCourseNumber" layoutX="77.0" layoutY="38.0" maxHeight="-Infinity"
+                           maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label"/>
+                    <Label fx:id="labelCourseCode" layoutX="77.0" layoutY="58.0" maxHeight="-Infinity"
+                           maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0" text="Label"/>
+                    <Label layoutX="16.0" layoutY="82.0" text="Moyenne:"/>
+                    <Label fx:id="labelCourseAverage" layoutX="87.0" layoutY="82.0"
+                           maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="16.0" prefWidth="81.0"
+                           text="Label"/>
+                </AnchorPane>
+            </SplitPane>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="252.0">
+            <TableView fx:id="tableViewGrade" layoutX="-3.0" prefHeight="400.0" prefWidth="216.0">
+                <columns>
+                    <TableColumn fx:id="tableColumnGradePercent" prefWidth="100.0" resizable="false"
+                                 text="Notes(%)"/>
+                    <TableColumn fx:id="tableColumnGrade" prefWidth="115.0" resizable="false" text="Notes"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </AnchorPane>
+    </SplitPane>
 </Pane>

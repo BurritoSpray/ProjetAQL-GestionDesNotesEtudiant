@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class AddGradeController {
@@ -17,6 +18,8 @@ public class AddGradeController {
     public Button buttonConfirm;
     @FXML
     public RadioButton radioPercent, radioPoints;
+    @FXML
+    public ToggleGroup radio;
 
     private Grade selectedGrade;
     private ManageGradeController manageGradeController;
@@ -51,7 +54,7 @@ public class AddGradeController {
     }
 
     private void onButtonConfirmClick(){
-        Grade newGrade = new Grade();
+        Grade newGrade;
 
         if(!this.textFieldPoints.getText().isEmpty() && !this.textFieldMaxPoints.getText().isEmpty()) {
             if (this.radioPoints.isSelected()) {

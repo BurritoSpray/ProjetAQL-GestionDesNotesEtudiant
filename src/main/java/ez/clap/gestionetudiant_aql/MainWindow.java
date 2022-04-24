@@ -10,14 +10,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainWindow extends Application {
-    private FXMLLoader fxmlLoader;
-    private MainWindowController mainWindowController;
-    public static Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
         Data.loadDataFromFiles();
-        fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 400);
         MainWindowController mainWindowController = fxmlLoader.getController();
         mainWindowController.loadWindow();
@@ -25,7 +22,6 @@ public class MainWindow extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        primaryStage = stage;
     }
 
     @Override

@@ -9,15 +9,15 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Data {
-    private static ObservableList<Student> studentList = FXCollections.observableArrayList();
+    private static final ObservableList<Student> studentList = FXCollections.observableArrayList();
 
-    private static ObservableList<Course> courseList = FXCollections.observableArrayList();
+    private static final ObservableList<Course> courseList = FXCollections.observableArrayList();
 
-    private static File mainFile = validateFolder("./Data");
+    private static final File mainFile = validateDataFolder();
 
-    private static File studentFile = new File(mainFile.getPath() + "/student.txt");
+    private static final File studentFile = new File(mainFile.getPath() + "/student.txt");
 
-    private static File courseFile = new File(mainFile.getPath() + "/course.txt");
+    private static final File courseFile = new File(mainFile.getPath() + "/course.txt");
 
 
 
@@ -54,8 +54,8 @@ public class Data {
         writeStudentToFile();
     }
 
-    private static File validateFolder(String folderPath) {
-        File fileToValidate = new File(folderPath);
+    private static File validateDataFolder() {
+        File fileToValidate = new File("./Data");
         fileToValidate.mkdir();
         return fileToValidate;
     }

@@ -49,51 +49,8 @@ public class MainWindowController {
     @FXML
     public TabPane tabPaneMain;
 
-    @FXML
-    private void onButtonAddStudentClick() {
-        Stage stage = setupStudentStage(Action.CREATE_STUDENT, "manage-student-window.fxml");
-        stage.show();
-    }
 
-
-    @FXML
-    private void onButtonEditStudentClick() {
-        Stage stage = setupStudentStage(Action.EDIT_STUDENT, "manage-student-window.fxml");
-        stage.show();
-    }
-
-
-    @FXML
-    private void onButtonDeleteStudentClick() {
-        Stage stage = setupStudentStage(Action.DELETE_STUDENT, "delete-warning-window.fxml");
-        stage.show();
-    }
-
-    @FXML
-    private void onButtonAddCourseClick() {
-        Stage stage = setupCourseStage(Action.CREATE_COURSE, "manage-course-window.fxml");
-        stage.show();
-    }
-
-    @FXML
-    private void onButtonEditCourseClick() {
-        Stage stage = setupCourseStage(Action.EDIT_COURSE, "manage-course-window.fxml");
-        stage.show();
-    }
-
-    @FXML
-    private void onButtonDeleteCourseClick() {
-        Stage stage = setupCourseStage(Action.DELETE_COURSE, "delete-warning-window.fxml");
-        stage.show();
-    }
-
-    @FXML
-    private void onButtonShowGradeClick(){
-        Stage stage = setupStudentStage(Action.SHOW_GRADES, "manage-grade-window.fxml");
-        stage.show();
-    }
-
-    private Stage setupStudentStage(Action action, String resource) {
+    private Stage setupStage(Action action, String resource) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = getLoaderFromResources(resource);
         assert fxmlLoader != null;
@@ -113,6 +70,7 @@ public class MainWindowController {
                 ManageStudentController manageStudentController = fxmlLoader.getController();
                 manageStudentController.loadData(this, true);
             }
+            // TODO: Creer une fonction pour enlever la repetition des DELETE case
             case DELETE_STUDENT -> {
                 stage.setTitle("Attention!");
                 DeleteWarningController deleteWarningController = fxmlLoader.getController();
@@ -120,12 +78,41 @@ public class MainWindowController {
                 if(selectionCount > 1){
                     deleteWarningController.labelStudentName.setText(selectionCount + " Étudiants");
                 }else{
-                    Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+                    Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
                     deleteWarningController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
                 }
                 deleteWarningController.buttonConfirm.setOnAction(event -> {
-                    Data.getStudentList().removeAll(tableViewStudent.getSelectionModel().getSelectedItems());
+                    Data.getStudentList().removeAll(this.tableViewStudent.getSelectionModel().getSelectedItems());
                     closeWindow(deleteWarningController.buttonConfirm);
+                });
+            }
+            case CREATE_COURSE -> {
+                stage.setTitle("Creer un cours");
+                ManageCourseController manageCourseController = fxmlLoader.getController();
+                manageCourseController.loadCourse(this, true);
+                manageCourseController.buttonConfirm.setText("Confirmer");
+            }
+            case EDIT_COURSE -> {
+                stage.setTitle("Modifier le cours");
+                ManageCourseController manageCourseController = fxmlLoader.getController();
+                manageCourseController.loadCourse(this, false);
+                manageCourseController.buttonConfirm.setText("Modifier");
+            }
+            case DELETE_COURSE -> {
+                stage.setTitle("Attention!");
+                DeleteWarningController deleteCourseController = fxmlLoader.getController();
+                int selectionCount = this.tableViewCourse.getSelectionModel().getSelectedItems().size();
+                if(selectionCount > 1){
+                    deleteCourseController.labelStudentName.setText(selectionCount + " Cours");
+
+                }else{
+                    Course selectedCourse = this.tableViewCourse.getSelectionModel().getSelectedItem();
+                    deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
+                }
+                deleteCourseController.buttonConfirm.setOnAction(event -> {
+                    Data.getCourseList().removeAll(this.tableViewCourse.getSelectionModel().getSelectedItems());
+                    closeWindow(deleteCourseController.buttonConfirm);
+
                 });
             }
             case SHOW_GRADES -> {
@@ -141,56 +128,9 @@ public class MainWindowController {
         return stage;
     }
 
-    private Stage setupCourseStage (Action action, String resource) {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = getLoaderFromResources(resource);
-        assert fxmlLoader != null;
-        Parent root = fxmlLoader.getRoot();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setResizable(false);
-
-        switch (action){
-            case CREATE_COURSE:{
-                stage.setTitle("Creer un cours");
-                ManageCourseController manageCourseController = fxmlLoader.getController();
-                manageCourseController.loadCourse(this, true);
-                manageCourseController.buttonConfirm.setText("Confirmer");
-                break;
-            }
-            case EDIT_COURSE:{
-                stage.setTitle("Modifier le cours");
-                ManageCourseController manageCourseController = fxmlLoader.getController();
-                manageCourseController.loadCourse(this, false);
-                manageCourseController.buttonConfirm.setText("Modifier");
-                break;
-            }
-            case DELETE_COURSE:{
-                stage.setTitle("Attention!");
-                DeleteWarningController deleteCourseController = fxmlLoader.getController();
-                int selectionCount = this.tableViewCourse.getSelectionModel().getSelectedItems().size();
-                if(selectionCount > 1){
-                    deleteCourseController.labelStudentName.setText(selectionCount + " Cours");
-
-                }else{
-                    Course selectedCourse = tableViewCourse.getSelectionModel().getSelectedItem();
-                    deleteCourseController.labelStudentName.setText(selectedCourse.getTitle() + " " + selectedCourse.getCourseNumber());
-                }
-                deleteCourseController.buttonConfirm.setOnAction(event -> {
-                    Data.getCourseList().removeAll(tableViewCourse.getSelectionModel().getSelectedItems());
-                    closeWindow(deleteCourseController.buttonConfirm);
-
-                });
-                break;
-            }
-        }
-
-        stage.setScene(new Scene(root));
-        return stage;
-    }
-
 
     public void showWarningPopup(String title, String warningMessage, String buttonText){
-        Dialog dialog = new Dialog();
+        Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle(title);
         dialog.setContentText(warningMessage);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -222,20 +162,64 @@ public class MainWindowController {
     }
 
     private void setupEvents(){
-        tableViewStudent.setOnKeyTyped(keyEvent -> {
+        this.buttonAddStudent.setOnAction(event -> setupStage(Action.CREATE_STUDENT, "manage-student-window.fxml").show());
+        this.buttonEditStudent.setOnAction(event -> setupStage(Action.EDIT_STUDENT, "manage-student-window.fxml").show());
+        this.buttonDeleteStudent.setOnAction(event -> setupStage(Action.DELETE_STUDENT, "delete-warning-window.fxml").show());
+        this.buttonShowGrade.setOnAction(event -> setupStage(Action.SHOW_GRADES, "manage-grade-window.fxml").show());
+        this.buttonAddCourse.setOnAction(event -> setupStage(Action.CREATE_COURSE, "manage-course-window.fxml").show());
+        this.buttonEditCourse.setOnAction(event -> setupStage(Action.EDIT_COURSE, "manage-course-window.fxml").show());
+        this.buttonDeleteCourse.setOnAction(event -> setupStage(Action.DELETE_COURSE, "delete-warning-window.fxml").show());
+
+        this.tableViewStudent.setOnKeyTyped(keyEvent -> {
             if(keyEvent.getCharacter().equals("\u007F") && this.tableViewStudent.isFocused() && !this.tableViewStudent.getSelectionModel().isEmpty())
                 this.buttonDeleteStudent.fire();
         });
-        this.tableViewCourse.setOnKeyTyped(keyEvent -> {
-            if(keyEvent.getCharacter().equals("\u007F") && this.tableViewCourse.isFocused() && !this.tableViewCourse.getSelectionModel().isEmpty())
-                this.buttonDeleteCourse.fire();
+
+        this.tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) c -> {
+            c.next();
+            if(this.tableViewStudent.getItems().size() > 0)
+                this.tableViewStudent.getSelectionModel().clearAndSelect(c.getFrom());
         });
-        this.tableViewCourse.getSelectionModel().getSelectedCells().addListener((
-                ListChangeListener<? super TablePosition>) change -> setCourseButtons(change.getList().isEmpty()));
+
+        this.tableViewStudent.setOnMouseClicked(event ->
+                setStudentButtons(this.tableViewStudent.selectionModelProperty().get().isEmpty()));
+
+        this.tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
+                setStudentButtons(this.tableViewStudent.getItems().size() == 0));
+
+        this.tableViewCourse.setOnKeyTyped(keyEvent -> {
+            if(keyEvent.getCharacter().equals("\u007F") && this.tableViewCourse.isFocused() && !this.tableViewCourse.getSelectionModel().isEmpty()) {
+                this.buttonDeleteCourse.fire();
+            }
+        });
+
+        this.tableViewCourse.getSelectionModel().getSelectedCells()
+                .addListener((ListChangeListener<? super TablePosition>) change -> setCourseButtons(change.getList().isEmpty()));
+
+        this.tableViewCourse.setOnMouseClicked(event ->
+                setCourseButtons(this.tableViewCourse.selectionModelProperty().get().isEmpty()));
+
+        this.tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
+                setCourseButtons(this.tableViewCourse.getItems().size() == 0));
+
+        this.tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) c -> {
+            c.next();
+            if(this.tableViewCourse.getItems().size() > 0){
+                this.tableViewCourse.getSelectionModel().clearAndSelect(c.getFrom());
+            }
+        });
+
         this.comboBoxSearchOption.setOnAction(event -> {
             String searchInput = this.textFieldSearch.getText();
             this.textFieldSearch.textProperty().set(searchInput + " ");
             this.textFieldSearch.textProperty().set(searchInput);
+        });
+
+        this.tabPaneMain.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue != newValue){
+                this.tableViewStudent.getSelectionModel().selectFirst();
+                this.tableViewCourse.getSelectionModel().selectFirst();
+            }
         });
     }
 
@@ -251,16 +235,16 @@ public class MainWindowController {
             this.comboBoxSearchOption.getSelectionModel().selectFirst();
             this.textFieldSearch.clear();
         });
-        tabPaneMain.getSelectionModel().selectNext();
-        tabPaneMain.getSelectionModel().selectFirst();
+        this.tabPaneMain.getSelectionModel().selectNext();
+        this.tabPaneMain.getSelectionModel().selectFirst();
     }
 
     private void setupStudentTableView() {
         this.tableViewStudent.getSelectionModel().selectionModeProperty().set(SelectionMode.MULTIPLE);
-        this.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Student, String>("StudentID"));
-        this.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<Student, String>("FirstName"));
-        this.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<Student, String>("SecondName"));
-        this.tableColumnCourse.setCellValueFactory(new PropertyValueFactory<Student, ComboBox<String>>("CourseListAsComboBox"));
+        this.tableColumnNumber.setCellValueFactory(new PropertyValueFactory<>("StudentID"));
+        this.tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+        this.tableColumnSecondName.setCellValueFactory(new PropertyValueFactory<>("SecondName"));
+        this.tableColumnCourse.setCellValueFactory(new PropertyValueFactory<>("CourseListAsComboBox"));
 
         FilteredList<Student> filteredStudent = new FilteredList<>(Data.getStudentList(), p -> true);
         this.textFieldSearch.textProperty().addListener(((observableValue, oldValue, newValue) -> {
@@ -282,26 +266,20 @@ public class MainWindowController {
             if(filteredStudent.size() == 0){
                 setStudentButtons(true);
             }else{
-                tableViewStudent.getSelectionModel().selectFirst();
+                this.tableViewStudent.getSelectionModel().selectFirst();
             }
         }));
 
         SortedList<Student> sortedStudent = new SortedList<>(filteredStudent);
-        sortedStudent.comparatorProperty().bind(tableViewStudent.comparatorProperty());
-        tableViewStudent.setItems(sortedStudent);
-
-        tableViewStudent.setOnMouseClicked(event ->
-                setStudentButtons(tableViewStudent.selectionModelProperty().get().isEmpty()));
-
-        tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
-                setStudentButtons(tableViewStudent.getItems().size() == 0));
+        sortedStudent.comparatorProperty().bind(this.tableViewStudent.comparatorProperty());
+        this.tableViewStudent.setItems(sortedStudent);
     }
 
     private void setupCourseTableView() {
         this.tableViewCourse.getSelectionModel().selectionModeProperty().set(SelectionMode.MULTIPLE);
-        this.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<Course, String>("Title"));
-        this.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<Course, String>("CourseNumber"));
-        this.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<Course, String>("Code"));
+        this.tableColumnCourseTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        this.tableColumnCourseNumber.setCellValueFactory(new PropertyValueFactory<>("CourseNumber"));
+        this.tableColumnCourseCode.setCellValueFactory(new PropertyValueFactory<>("Code"));
 
         FilteredList<Course> filteredCourse = new FilteredList<>(Data.getCourseList(), p -> true);
         this.textFieldSearch.textProperty().addListener(((observableValue, oldValue, newValue) -> {
@@ -325,18 +303,13 @@ public class MainWindowController {
             if(filteredCourse.size() == 0){
                 setCourseButtons(true);
             }else{
-                tableViewCourse.getSelectionModel().selectFirst();
+                this.tableViewCourse.getSelectionModel().selectFirst();
             }
         }));
 
         SortedList<Course> sortedCourse = new SortedList<>(filteredCourse);
         sortedCourse.comparatorProperty().bind(this.tableViewCourse.comparatorProperty());
         this.tableViewCourse.setItems(sortedCourse);
-
-        tableViewCourse.setOnMouseClicked(event ->
-                setCourseButtons(tableViewCourse.selectionModelProperty().get().isEmpty()));
-        tableViewCourse.getItems().addListener((ListChangeListener<? super Course>) event ->
-                setCourseButtons(tableViewCourse.getItems().size() == 0));
     }
 
     private void setStudentButtons(boolean disabled) {
