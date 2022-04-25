@@ -31,6 +31,10 @@ public class Data {
 
     public static Student selectedStudent;
 
+    public static File getDataFolder(){
+        return Data.mainFile;
+    }
+
     public static void loadDataFromFiles() {
         // Faire une fonction pour ne pas dupliquer le code.
         //Student

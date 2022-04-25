@@ -2,9 +2,11 @@ package ez.clap.gestionetudiant_aql.controllers;
 
 import ez.clap.gestionetudiant_aql.MainWindow;
 import ez.clap.gestionetudiant_aql.entities.Course;
+import ez.clap.gestionetudiant_aql.entities.Grade;
 import ez.clap.gestionetudiant_aql.entities.Student;
 import ez.clap.gestionetudiant_aql.utilities.Data;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -16,7 +18,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainWindowController {
 
@@ -31,7 +36,9 @@ public class MainWindowController {
     }
 
     @FXML
-    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent, buttonAddCourse, buttonEditCourse, buttonDeleteCourse, buttonShowGrade;
+    public Button buttonAddStudent, buttonEditStudent, buttonDeleteStudent,
+            buttonAddCourse, buttonEditCourse, buttonDeleteCourse,
+            buttonShowGrade, buttonExport;
     @FXML
     public TableView<Student> tableViewStudent;
     @FXML
@@ -169,6 +176,7 @@ public class MainWindowController {
         this.buttonAddCourse.setOnAction(event -> setupStage(Action.CREATE_COURSE, "manage-course-window.fxml").show());
         this.buttonEditCourse.setOnAction(event -> setupStage(Action.EDIT_COURSE, "manage-course-window.fxml").show());
         this.buttonDeleteCourse.setOnAction(event -> setupStage(Action.DELETE_COURSE, "delete-warning-window.fxml").show());
+        this.buttonExport.setOnAction(actionEvent -> exportSelectedStudents());
 
         this.tableViewStudent.setOnKeyTyped(keyEvent -> {
             if(keyEvent.getCharacter().equals("\u007F") && this.tableViewStudent.isFocused() && !this.tableViewStudent.getSelectionModel().isEmpty())
@@ -184,8 +192,10 @@ public class MainWindowController {
         this.tableViewStudent.setOnMouseClicked(event ->
                 setStudentButtons(this.tableViewStudent.selectionModelProperty().get().isEmpty()));
 
-        this.tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->
-                setStudentButtons(this.tableViewStudent.getItems().size() == 0));
+        this.tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->{
+                    setStudentButtons(this.tableViewStudent.getItems().size() == 0);
+                    Data.selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
+                });
 
         this.tableViewCourse.setOnKeyTyped(keyEvent -> {
             if(keyEvent.getCharacter().equals("\u007F") && this.tableViewCourse.isFocused() && !this.tableViewCourse.getSelectionModel().isEmpty()) {
@@ -316,11 +326,54 @@ public class MainWindowController {
         this.buttonDeleteStudent.setDisable(disabled);
         this.buttonEditStudent.setDisable(disabled);
         this.buttonShowGrade.setDisable(disabled);
+        this.buttonExport.setDisable(disabled);
     }
 
     private void setCourseButtons(boolean disabled) {
         this.buttonDeleteCourse.disableProperty().set(disabled);
         this.buttonEditCourse.disableProperty().set(disabled);
+    }
+
+    private void exportSelectedStudents(){
+        File outputFolder = new File(Data.getDataFolder().getPath() + "/output/");
+        if(!outputFolder.exists())
+            outputFolder.mkdir();
+        ObservableList<Student> studentsToExport = this.tableViewStudent.getSelectionModel().getSelectedItems();
+        try {
+            for (Student student : studentsToExport) {
+                ArrayList<String> data = new ArrayList<>();
+                data.add(String.format("""
+                        Numéros étudiant: %s
+                        Nom: %s
+                        Prénom: %s
+                        Cours:
+                        
+                        """, student.getStudentID(), student.getSecondName(), student.getFirstName()));
+
+                for(Course course : student.getCourseList()){
+                    data.add(String.format("""
+                            Titre: %s
+                            Code: %s
+                            Numéros de cours: %s
+                            """, course.getTitle(), course.getCode(), course.getCourseNumber()));
+                    for(Grade grade : course.getGradeList()){
+                        data.add(String.format("""
+                                Note: %s | %c
+                                """, grade.getGradeInPercentString(), grade.getGrade()));
+                    }
+                    data.add(String.format("Moyenne: %s\n\n", course.getAverageInPercent()+"%"));
+                }
+                FileWriter output = new FileWriter(outputFolder.getPath() + "/" + student.getStudentID() + ".txt", false);
+                for(String string : data){
+                    output.write(string);
+                }
+                output.close();
+            }
+            showWarningPopup("Opération terminé", "Les fichier se trouve dans /Data/output/", "OK");
+        }catch(IOException e){
+            this.showWarningPopup("Erreur", "Une erreur est survenue lors de l'écriture!", "OK");
+            System.out.println(e.getMessage());
+        }
     }
 
 }
