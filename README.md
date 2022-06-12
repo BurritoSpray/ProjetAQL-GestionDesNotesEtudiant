@@ -18,9 +18,9 @@ Tâches complétées:
   - Ajouter un selection multiple pour supprimer plusieurs elements
   - Faire fonctionner les cours dans le menu de modification d'étudiant
   - Ajouter la detection de la touche delete sur les cours
+  - Ajouter une fonction pour enregistrer un étudiant, ses cours et ses notes dans un fichier .txt
 
 Tâches restantes :
-  - Ajouter une fonction pour enregistrer un étudiant, ses cours et ses notes dans un fichier .txt
   - Chasser les bugs
   - Nettoyer et optimiser le code
 
@@ -30,5 +30,5 @@ Dispertion des tâches:
   - Nicolas : Doit se trouver une nouvelle tache
   - Jeremy  : Doit se trouver une nouvelle tache
 
-Progression du projets : 95%
+Progression du projets : 100%
 
