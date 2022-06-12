@@ -24,6 +24,10 @@ public class Course implements Serializable {
         this.gradeList = grades;
     }
 
+    public Course(Course course){
+        this(course.title, course.code, course.courseNumber, course.gradeList);
+    }
+
 
     // Getters
     public String getCourseNumber() {return this.courseNumber;}
