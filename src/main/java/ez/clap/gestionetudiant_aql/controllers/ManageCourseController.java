@@ -15,6 +15,7 @@ public class ManageCourseController {
     private Course selectedCourse;
     private MainWindowController mainWindowController;
 
+    // TODO: Faire sur que si on modifie un cours les infos du cours sont aussi modifier dans la liste des cours des étudiants
     public void loadCourse(MainWindowController mainWindowController, boolean newCourse){
         this.mainWindowController = mainWindowController;
         if(newCourse){
