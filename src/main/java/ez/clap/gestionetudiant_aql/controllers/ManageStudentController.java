@@ -22,15 +22,14 @@ public class ManageStudentController {
     @FXML
     public ListView<CheckBox> listViewCourse;
 
-    private Student selectedStudent;
     private boolean isNewStudent;
     private MainWindowController mainWindowController;
 
 
     private void loadStudent() {
-        textFieldFirstName.setText(this.selectedStudent.getFirstName());
-        textFieldSecondName.setText(this.selectedStudent.getSecondName());
-        textFieldNumber.setText(this.selectedStudent.getStudentID());
+        textFieldFirstName.setText(Data.selectedStudent.getFirstName());
+        textFieldSecondName.setText(Data.selectedStudent.getSecondName());
+        textFieldNumber.setText(Data.selectedStudent.getStudentID());
     }
 
     private void setupEvents() {
@@ -42,7 +41,7 @@ public class ManageStudentController {
         for (Course course : Data.getCourseList()) {
             CheckBox courseTitleCheckBox = new CheckBox();
             courseTitleCheckBox.setText(course.getTitle());
-            if (this.selectedStudent.getCourseList().contains(course)) {
+            if (Data.selectedStudent.getCourseList().contains(course)) {
                 courseTitleCheckBox.setSelected(true);
             }
             listViewCourse.getItems().add(courseTitleCheckBox);
@@ -51,7 +50,7 @@ public class ManageStudentController {
 
     public void loadData(MainWindowController mainWindowController, boolean newStudent) {
         this.mainWindowController = mainWindowController;
-        this.selectedStudent = newStudent ? new Student() : mainWindowController.tableViewStudent.getSelectionModel().getSelectedItem();
+        Data.selectedStudent = newStudent ? new Student() : mainWindowController.tableViewStudent.getSelectionModel().getSelectedItem();
         this.isNewStudent = newStudent;
         loadStudent();
         loadCourseList();
@@ -73,13 +72,13 @@ public class ManageStudentController {
         Student student = new Student(this.textFieldFirstName.getText(),
                 this.textFieldSecondName.getText(),
                 this.textFieldNumber.getText(), studentCourseList);
-        Data.getStudentList().remove(selectedStudent);
+        Data.getStudentList().remove(Data.selectedStudent);
         Data.getStudentList().add(student);
         this.mainWindowController.tableViewStudent.refresh();
     }
 
     private ArrayList<Course> fixCourseList() {
-        Student tempStudent = this.selectedStudent;
+        Student tempStudent = Data.selectedStudent;
         ArrayList<Course> newCourseList = new ArrayList<>();
         for (int i = 0; i < this.listViewCourse.getItems().size(); i++) {
             Course course = Data.getCourseList().get(i);

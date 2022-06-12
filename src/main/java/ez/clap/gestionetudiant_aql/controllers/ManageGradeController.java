@@ -37,16 +37,13 @@ public class ManageGradeController
     public Label labelStudentNumber, labelStudentFirstName, labelStudentSecondName,
             labelCourseTitle, labelCourseNumber, labelCourseCode, labelCourseAverage;
 
-    public Student selectedStudent;
     public Course selectedCourse;
 
     public void loadData(MainWindowController mainWindowController){
-        this.selectedStudent = mainWindowController.tableViewStudent.getSelectionModel().getSelectedItem();
-        Data.selectedStudent = this.selectedStudent;
         setupEvents();
-        setStudentInfo(this.selectedStudent);
+        setStudentInfo(Data.selectedStudent);
         this.comboBoxCourse.getSelectionModel().selectFirst();
-        setCourseInfo(this.selectedStudent.getCourseList().isEmpty() ? new Course() : this.selectedStudent.getCourseList().get(0));
+        setCourseInfo(Data.selectedStudent.getCourseList().isEmpty() ? new Course() : Data.selectedStudent.getCourseList().get(0));
         setupTableView();
     }
 
@@ -93,9 +90,9 @@ public class ManageGradeController
 
         this.comboBoxCourse.valueProperty().addListener((observableValue, s, t1) -> {
             int index = this.comboBoxCourse.getSelectionModel().getSelectedIndex();
-            this.setCourseInfo(selectedStudent.getCourseList().get(index));
-            this.tableViewGrade.setItems(FXCollections.observableArrayList(this.selectedStudent.getCourseList().get(index).getGradeList()));
-            this.selectedCourse = this.selectedStudent.getCourseList().get(index);
+            this.setCourseInfo(Data.selectedStudent.getCourseList().get(index));
+            this.tableViewGrade.setItems(FXCollections.observableArrayList(Data.selectedStudent.getCourseList().get(index).getGradeList()));
+            this.selectedCourse = Data.selectedStudent.getCourseList().get(index);
         });
 
         this.tableViewGrade.getSelectionModel().getSelectedCells()
@@ -121,8 +118,8 @@ public class ManageGradeController
         this.tableColumnGrade.setCellValueFactory(new PropertyValueFactory<>("Grade"));
         this.tableColumnGradePercent.setCellValueFactory(new PropertyValueFactory<>("GradeInPercent"));
         ObservableList<Grade> gradeObservableList = FXCollections.observableArrayList();
-        if(!this.selectedStudent.getCourseList().isEmpty())
-            gradeObservableList.addAll(this.selectedStudent.getCourseList().get(0).getGradeList());
+        if(!Data.selectedStudent.getCourseList().isEmpty())
+            gradeObservableList.addAll(Data.selectedStudent.getCourseList().get(0).getGradeList());
         else{
             this.buttonAddGrade.setDisable(true);
         }

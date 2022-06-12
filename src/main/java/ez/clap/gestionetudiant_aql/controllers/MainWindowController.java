@@ -85,8 +85,7 @@ public class MainWindowController {
                 if(selectionCount > 1){
                     deleteWarningController.labelStudentName.setText(selectionCount + " Étudiants");
                 }else{
-                    Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
-                    deleteWarningController.labelStudentName.setText(selectedStudent.getFirstName() + " " + selectedStudent.getSecondName());
+                    deleteWarningController.labelStudentName.setText(Data.selectedStudent.getFirstName() + " " + Data.selectedStudent.getSecondName());
                 }
                 deleteWarningController.buttonConfirm.setOnAction(event -> {
                     Data.getStudentList().removeAll(this.tableViewStudent.getSelectionModel().getSelectedItems());
@@ -124,8 +123,10 @@ public class MainWindowController {
             }
             case SHOW_GRADES -> {
                 ManageGradeController manageGradeController = fxmlLoader.getController();
-                Student selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
-                stage.setTitle("Notes de " + selectedStudent.getStudentID() + "(" + selectedStudent.getFirstName() + " " + selectedStudent.getSecondName()+ ")");
+                stage.setTitle("Notes de " +
+                        Data.selectedStudent.getStudentID() + "(" +
+                        Data.selectedStudent.getFirstName() + " " +
+                        Data.selectedStudent.getSecondName()+ ")");
                 manageGradeController.loadData(this);
 
             }
@@ -190,8 +191,10 @@ public class MainWindowController {
                 this.tableViewStudent.getSelectionModel().clearAndSelect(c.getFrom());
         });
 
-        this.tableViewStudent.setOnMouseClicked(event ->
-                setStudentButtons(this.tableViewStudent.selectionModelProperty().get().isEmpty()));
+        this.tableViewStudent.setOnMouseClicked(event -> {
+            setStudentButtons(this.tableViewStudent.selectionModelProperty().get().isEmpty());
+            Data.selectedStudent = this.tableViewStudent.getSelectionModel().getSelectedItem();
+        });
 
         this.tableViewStudent.getItems().addListener((ListChangeListener<? super Student>) event ->{
                     setStudentButtons(this.tableViewStudent.getItems().size() == 0);
