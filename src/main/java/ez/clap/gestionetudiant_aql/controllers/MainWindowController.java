@@ -139,7 +139,8 @@ public class MainWindowController {
     public void showWarningPopup(String title, String warningMessage, String buttonText){
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle(title);
-        dialog.setContentText(warningMessage);
+        Label label = new Label(warningMessage);
+        dialog.getDialogPane().setContent(label);
         dialog.initModality(Modality.APPLICATION_MODAL);
         ButtonType closeButton = new ButtonType(buttonText, ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
@@ -369,7 +370,7 @@ public class MainWindowController {
                 }
                 output.close();
             }
-            showWarningPopup("Opération terminé", "Les fichier se trouve dans /Data/output/", "OK");
+            showWarningPopup("Opération terminé", String.format("Les fichier se trouve dans %s", outputFolder.getCanonicalPath()), "OK");
         }catch(IOException e){
             this.showWarningPopup("Erreur", "Une erreur est survenue lors de l'écriture!", "OK");
             System.out.println(e.getMessage());
