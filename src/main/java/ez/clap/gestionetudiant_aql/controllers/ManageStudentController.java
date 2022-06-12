@@ -64,8 +64,8 @@ public class ManageStudentController {
         else {
             for (int i = 0; i < listViewCourse.getItems().size(); i++) {
                 if (listViewCourse.getItems().get(i).isSelected()) {
-                    Data.getCourseList().get(i).getGradeList().clear();
-                    studentCourseList.add(Data.getCourseList().get(i));
+                    Course tempCourse = Data.getCourseList().get(i);
+                    studentCourseList.add(new Course(tempCourse.getTitle(), tempCourse.getCode(), tempCourse.getCourseNumber()));
                 }
             }
         }
@@ -81,21 +81,22 @@ public class ManageStudentController {
         Student tempStudent = Data.selectedStudent;
         ArrayList<Course> newCourseList = new ArrayList<>();
         for (int i = 0; i < this.listViewCourse.getItems().size(); i++) {
-            Course course = Data.getCourseList().get(i);
+            Course tempCourse = Data.getCourseList().get(i);
+            Course course = new Course(tempCourse.getTitle(), tempCourse.getCode(), tempCourse.getCourseNumber());
             if(this.listViewCourse.getItems().get(i).isSelected()) {
                 boolean isAdded = false;
                 for (Course studentCourse : tempStudent.getCourseList()) {
                     if (course.getCourseNumber().equals(studentCourse.getCourseNumber()) &&
                             course.getCode().equals(studentCourse.getCode()) &&
                             course.getTitle().equals(studentCourse.getTitle())) {
-                        newCourseList.add(studentCourse);
+                        newCourseList.add(new Course(studentCourse));
                         tempStudent.getCourseList().remove(studentCourse);
                         isAdded = true;
                         break;
                     }
                 }
                 if (!isAdded) {
-                    newCourseList.add(course);
+                    newCourseList.add(new Course(course));
                 }
             }
         }
